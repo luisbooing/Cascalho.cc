@@ -1,0 +1,200 @@
+import { client } from '@/sanity/client';
+import { ARTICLES, REVIEWS, VIDEOS, AFFILIATE_PRODUCTS } from '@/lib/data';
+import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct } from '@/lib/types';
+
+/**
+ * Busca todos os artigos (posts) do Sanity CMS com fallback automático para lib/data.ts
+ */
+export async function getPosts(): Promise<ArticleItem[]> {
+  if (!client) return ARTICLES;
+  try {
+    const groq = `*[_type == "post"] | order(publishedAt desc) {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      category,
+      author,
+      publishedAt,
+      readTime,
+      excerpt,
+      "coverImage": coverImage.asset->url
+    }`;
+    const data = await client.fetch<ArticleItem[]>(groq);
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // CMS indisponível ou sem dados, utiliza fallback estático
+  }
+  return ARTICLES;
+}
+
+/**
+ * Busca um artigo pelo Slug
+ */
+export async function getPostBySlug(slug: string): Promise<ArticleItem | undefined> {
+  if (!client) return ARTICLES.find((a) => a.slug === slug);
+  try {
+    const groq = `*[_type == "post" && slug.current == $slug][0] {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      category,
+      author,
+      publishedAt,
+      readTime,
+      excerpt,
+      "coverImage": coverImage.asset->url
+    }`;
+    const data = await client.fetch<ArticleItem>(groq, { slug });
+    if (data && data.title) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return ARTICLES.find((a) => a.slug === slug);
+}
+
+/**
+ * Busca todos os reviews com fallback automático
+ */
+export async function getReviews(): Promise<ReviewItem[]> {
+  if (!client) return REVIEWS;
+  try {
+    const groq = `*[_type == "review"] | order(publishedAt desc) {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      category,
+      productName,
+      rating,
+      publishedAt,
+      excerpt,
+      "coverImage": coverImage.asset->url,
+      methodology,
+      pros,
+      cons,
+      verdict
+    }`;
+    const data = await client.fetch<ReviewItem[]>(groq);
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return REVIEWS;
+}
+
+/**
+ * Busca um review pelo Slug
+ */
+export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefined> {
+  if (!client) return REVIEWS.find((r) => r.slug === slug);
+  try {
+    const groq = `*[_type == "review" && slug.current == $slug][0] {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      category,
+      productName,
+      rating,
+      publishedAt,
+      excerpt,
+      "coverImage": coverImage.asset->url,
+      methodology,
+      pros,
+      cons,
+      verdict
+    }`;
+    const data = await client.fetch<ReviewItem>(groq, { slug });
+    if (data && data.title) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return REVIEWS.find((r) => r.slug === slug);
+}
+
+/**
+ * Busca todos os vídeos com fallback automático
+ */
+export async function getVideos(): Promise<VideoItem[]> {
+  if (!client) return VIDEOS;
+  try {
+    const groq = `*[_type == "video"] | order(publishedAt desc) {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      youtubeUrl,
+      publishedAt,
+      duration,
+      summary,
+      keyTakeaways
+    }`;
+    const data = await client.fetch<VideoItem[]>(groq);
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return VIDEOS;
+}
+
+/**
+ * Busca um vídeo pelo Slug
+ */
+export async function getVideoBySlug(slug: string): Promise<VideoItem | undefined> {
+  if (!client) return VIDEOS.find((v) => v.slug === slug);
+  try {
+    const groq = `*[_type == "video" && slug.current == $slug][0] {
+      "id": _id,
+      title,
+      "slug": slug.current,
+      youtubeUrl,
+      publishedAt,
+      duration,
+      summary,
+      keyTakeaways
+    }`;
+    const data = await client.fetch<VideoItem>(groq, { slug });
+    if (data && data.title) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return VIDEOS.find((v) => v.slug === slug);
+}
+
+/**
+ * Busca equipamentos afiliados com fallback automático
+ */
+export async function getAffiliateProducts(): Promise<AffiliateProduct[]> {
+  if (!client) return AFFILIATE_PRODUCTS;
+  try {
+    const groq = `*[_type == "affiliateProduct"] {
+      "id": _id,
+      name,
+      category,
+      priceEstimate,
+      testedBadge,
+      testedPeriod,
+      honestContext,
+      limitation,
+      affiliateUrl,
+      storeName,
+      "image": image.asset->url
+    }`;
+    const data = await client.fetch<AffiliateProduct[]>(groq);
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return AFFILIATE_PRODUCTS;
+}

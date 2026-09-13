@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ink: #231926;
+  --color-paper: #FFF1D6;
+  --color-white: #FFFFFF;
+
+  --color-coral: #F04D2E;
+  --color-orange: #FA7F29;
+  --color-sun: #F5C77A;
+  --color-lime: #7CD87B;
+  --color-green: #55A888;
+  --color-teal: #209C8A;
+  --color-pink: #F46E51;
+  --color-magenta: #BA0046;
+  --color-olive: #C09C41;
+
+  --bg-page: var(--color-paper);
+  --bg-surface: #FFF9ED;
+  --bg-dark: var(--color-ink);
+  --text-primary: var(--color-ink);
+  --text-on-dark: var(--color-paper);
+  --text-muted: #665A61;
+  --border-soft: rgba(35, 25, 38, 0.16);
+  --border-strong: rgba(35, 25, 38, 0.34);
+  --action-primary: var(--color-coral);
+  --action-primary-hover: var(--color-magenta);
+  --action-secondary: var(--color-teal);
+  --focus-ring: var(--color-magenta);
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-coral);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-magenta);
+}
+
+/* Accessible focus ring */
+:focus-visible {
+  outline: 3px solid var(--color-magenta);
+  outline-offset: 3px;
+}
+
+/* Organic Blobs and Animations */
+.cascalho-blob-1 {
+  border-radius: 48% 52% 62% 38% / 42% 38% 62% 58%;
+}
+
+.cascalho-blob-2 {
+  border-radius: 63% 37% 32% 68% / 54% 47% 53% 46%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-cascalho-float {
+    animation: cascalho-float 14s ease-in-out infinite alternate;
+  }
+  .animate-cascalho-pulse {
+    animation: cascalho-pulse 8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes cascalho-float {
+  from {
+    transform: rotate(-18deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(-12deg) translate3d(-12px, 10px, 0);
+  }
+}
+
+@keyframes cascalho-pulse {
+  from {
+    transform: scale(1) rotate(0deg);
+  }
+  to {
+    transform: scale(1.08) rotate(6deg);
+  }
+}
