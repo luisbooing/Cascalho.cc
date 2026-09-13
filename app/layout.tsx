@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -82,9 +81,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${plusJakartaSans.variable} ${lora.variable} min-h-screen flex flex-col font-sans bg-cascalho-paper text-cascalho-ink selection:bg-cascalho-coral selection:text-white`}>
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );
