@@ -98,8 +98,11 @@ export default function HeroSection() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-cascalho-ink via-transparent to-transparent opacity-80" />
                   <div className="absolute bottom-3 left-3 right-3 bg-cascalho-ink/90 backdrop-blur-md p-3 rounded-xl border border-white/10">
-                    <p className="text-xs font-bold text-cascalho-sun">George Volpão & Patricia Fontana</p>
-                    <p className="text-[11px] text-cascalho-paper/80">Montanhas, Gravel & Trail Running em Curitiba</p>
+                    <p className="text-xs font-bold text-cascalho-sun flex items-center justify-between">
+                      <span>George Volpão & Patricia Fontana</span>
+                      <span className="text-[10px] bg-cascalho-coral/30 text-cascalho-sun px-2 py-0.5 rounded font-mono">Curitiba, PR</span>
+                    </p>
+                    <p className="text-[11px] text-cascalho-paper/80 mt-0.5">Montanhas, Gravel & Trail Running</p>
                   </div>
                 </div>
 
