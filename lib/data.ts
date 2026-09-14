@@ -8,14 +8,14 @@ export const TEAM_MEMBERS: TeamMember[] = [
     role: "Criador, Ciclista & Corredor de Trilha",
     bio: "Nasceu em Curitiba, atua nas montanhas brasileiras desde 1995 e mantém seu blog pessoal desde 2006. Pedala de gravel, corre ultramaratonas em trilha e produz conteúdo sem filtro para quem quer viver o esporte ao ar livre com bom senso e orçamento consciente.",
     yearsActive: "Desde 1995 nas montanhas",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80"
+    avatar: "/sobre/george.jpg"
   },
   {
     name: "Patricia Fontana",
     role: "Coautora, Produção & Operação",
     bio: "Parceira de expedições, gravação e coautoria. Patricia garante o olhar de campo, a curadoria de rotas e a estrutura de operação para que o Cascalho.CC continue sendo uma plataforma independente e confiável.",
     yearsActive: "Coautora & Produção de campo",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+    avatar: "/sobre/patricia.jpg"
   }
 ];
 
