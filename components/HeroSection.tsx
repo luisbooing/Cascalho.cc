@@ -90,7 +90,7 @@ export default function HeroSection() {
                 
                 <div className="relative h-64 sm:h-72 w-full rounded-2xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                    src="/sobre/george.jpg"
                     alt="George Volpão — Cascalho.CC"
                     fill
                     className="object-cover object-top"

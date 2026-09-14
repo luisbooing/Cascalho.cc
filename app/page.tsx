@@ -116,10 +116,10 @@ export default async function HomePage() {
             <div className="lg:col-span-4 relative">
               <div className="relative h-72 w-full rounded-2xl overflow-hidden border border-cascalho-ink/20 shadow">
                 <Image
-                  src={featuredArticle.coverImage}
-                  alt="A história por trás do equipamento"
+                  src="/sobre/george.jpg"
+                  alt="George Volpão — Cascalho.CC"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-cascalho-ink/80 via-transparent to-transparent" />
                 <div className="absolute bottom-3 left-3 right-3 text-white">
