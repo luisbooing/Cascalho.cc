@@ -8,7 +8,7 @@ import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct } from '@/lib/type
 export async function getPosts(): Promise<ArticleItem[]> {
   if (!client) return ARTICLES;
   try {
-    const groq = `*[_type == "post"] | order(publishedAt desc) {
+    const groq = `*[_type == "post" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
       "id": _id,
       title,
       "slug": slug.current,
@@ -19,7 +19,7 @@ export async function getPosts(): Promise<ArticleItem[]> {
       excerpt,
       "coverImage": coverImage.asset->url
     }`;
-    const data = await client.fetch<ArticleItem[]>(groq);
+    const data = await client.fetch<ArticleItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
       return data;
     }
@@ -35,7 +35,7 @@ export async function getPosts(): Promise<ArticleItem[]> {
 export async function getPostBySlug(slug: string): Promise<ArticleItem | undefined> {
   if (!client) return ARTICLES.find((a) => a.slug === slug);
   try {
-    const groq = `*[_type == "post" && slug.current == $slug][0] {
+    const groq = `*[_type == "post" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
       "id": _id,
       title,
       "slug": slug.current,
@@ -46,7 +46,7 @@ export async function getPostBySlug(slug: string): Promise<ArticleItem | undefin
       excerpt,
       "coverImage": coverImage.asset->url
     }`;
-    const data = await client.fetch<ArticleItem>(groq, { slug });
+    const data = await client.fetch<ArticleItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {
       return data;
     }
@@ -62,7 +62,7 @@ export async function getPostBySlug(slug: string): Promise<ArticleItem | undefin
 export async function getReviews(): Promise<ReviewItem[]> {
   if (!client) return REVIEWS;
   try {
-    const groq = `*[_type == "review"] | order(publishedAt desc) {
+    const groq = `*[_type == "review" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
       "id": _id,
       title,
       "slug": slug.current,
@@ -77,7 +77,7 @@ export async function getReviews(): Promise<ReviewItem[]> {
       cons,
       verdict
     }`;
-    const data = await client.fetch<ReviewItem[]>(groq);
+    const data = await client.fetch<ReviewItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
       return data;
     }
@@ -93,7 +93,7 @@ export async function getReviews(): Promise<ReviewItem[]> {
 export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefined> {
   if (!client) return REVIEWS.find((r) => r.slug === slug);
   try {
-    const groq = `*[_type == "review" && slug.current == $slug][0] {
+    const groq = `*[_type == "review" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
       "id": _id,
       title,
       "slug": slug.current,
@@ -108,7 +108,7 @@ export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefi
       cons,
       verdict
     }`;
-    const data = await client.fetch<ReviewItem>(groq, { slug });
+    const data = await client.fetch<ReviewItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {
       return data;
     }
@@ -124,7 +124,7 @@ export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefi
 export async function getVideos(): Promise<VideoItem[]> {
   if (!client) return VIDEOS;
   try {
-    const groq = `*[_type == "video"] | order(publishedAt desc) {
+    const groq = `*[_type == "video" && !(_id in path("drafts.**"))] | order(publishedAt desc) {
       "id": _id,
       title,
       "slug": slug.current,
@@ -134,7 +134,7 @@ export async function getVideos(): Promise<VideoItem[]> {
       summary,
       keyTakeaways
     }`;
-    const data = await client.fetch<VideoItem[]>(groq);
+    const data = await client.fetch<VideoItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
       return data;
     }
@@ -150,7 +150,7 @@ export async function getVideos(): Promise<VideoItem[]> {
 export async function getVideoBySlug(slug: string): Promise<VideoItem | undefined> {
   if (!client) return VIDEOS.find((v) => v.slug === slug);
   try {
-    const groq = `*[_type == "video" && slug.current == $slug][0] {
+    const groq = `*[_type == "video" && slug.current == $slug && !(_id in path("drafts.**"))][0] {
       "id": _id,
       title,
       "slug": slug.current,
@@ -160,7 +160,7 @@ export async function getVideoBySlug(slug: string): Promise<VideoItem | undefine
       summary,
       keyTakeaways
     }`;
-    const data = await client.fetch<VideoItem>(groq, { slug });
+    const data = await client.fetch<VideoItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {
       return data;
     }
@@ -176,7 +176,7 @@ export async function getVideoBySlug(slug: string): Promise<VideoItem | undefine
 export async function getAffiliateProducts(): Promise<AffiliateProduct[]> {
   if (!client) return AFFILIATE_PRODUCTS;
   try {
-    const groq = `*[_type == "affiliateProduct"] {
+    const groq = `*[_type == "affiliateProduct" && !(_id in path("drafts.**"))] {
       "id": _id,
       name,
       category,
@@ -189,7 +189,7 @@ export async function getAffiliateProducts(): Promise<AffiliateProduct[]> {
       storeName,
       "image": image.asset->url
     }`;
-    const data = await client.fetch<AffiliateProduct[]>(groq);
+    const data = await client.fetch<AffiliateProduct[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
       return data;
     }
