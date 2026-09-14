@@ -1,8 +1,12 @@
 import { MetadataRoute } from 'next';
-import { ARTICLES, REVIEWS, VIDEOS } from '@/lib/data';
+import { getPosts, getReviews, getVideos } from '@/lib/queries';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://cascalho.cc';
+
+  const posts = await getPosts();
+  const reviews = await getReviews();
+  const videos = await getVideos();
 
   const staticPages = [
     '',
@@ -22,23 +26,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === '' ? 1.0 : 0.8,
   }));
 
-  const reviewPages = REVIEWS.map((rev) => ({
+  const reviewPages = reviews.map((rev) => ({
     url: `${baseUrl}/reviews/${rev.slug}`,
-    lastModified: new Date(rev.updatedAt),
+    lastModified: new Date(rev.updatedAt || rev.publishedAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.9,
   }));
 
-  const articlePages = ARTICLES.map((art) => ({
+  const articlePages = posts.map((art) => ({
     url: `${baseUrl}/reviews/${art.slug}`,
-    lastModified: new Date(art.publishedAt),
+    lastModified: new Date(art.publishedAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
-  const videoPages = VIDEOS.map((vid) => ({
+  const videoPages = videos.map((vid) => ({
     url: `${baseUrl}/videos/${vid.slug}`,
-    lastModified: new Date(vid.publishedAt),
+    lastModified: new Date(vid.publishedAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
