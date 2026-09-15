@@ -2,8 +2,11 @@ import { defineField, defineType } from 'sanity';
 
 export const customTableSchema = defineType({
   name: 'customTable',
-  title: 'Tabela de Informações',
+  title: 'Tabela Rápida (Texto)',
   type: 'object',
+  options: {
+    modal: { type: 'dialog', width: 'auto' },
+  },
   fields: [
     defineField({
       name: 'caption',
@@ -12,56 +15,31 @@ export const customTableSchema = defineType({
       placeholder: 'ex: Tabela de Ajuste de Pressão de Pneus',
     }),
     defineField({
-      name: 'headers',
-      title: 'Cabeçalhos das Colunas',
-      type: 'array',
-      of: [{ type: 'string' }],
-      description: 'Adicione o nome de cada coluna (ex: Mudança, Tendência de ajuste, O que observar)',
+      name: 'headersText',
+      title: 'Cabeçalhos das Colunas (Separados por | ou vírgula)',
+      type: 'string',
+      placeholder: 'Mudança | Tendência de ajuste | O que observar',
     }),
     defineField({
-      name: 'rows',
-      title: 'Linhas da Tabela',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          name: 'tableRow',
-          title: 'Linha',
-          fields: [
-            defineField({
-              name: 'cells',
-              title: 'Células da Linha',
-              type: 'array',
-              of: [{ type: 'string' }],
-              description: 'Adicione os textos das colunas na mesma ordem dos cabeçalhos acima',
-            }),
-          ],
-          preview: {
-            select: {
-              cells: 'cells',
-            },
-            prepare({ cells }) {
-              return {
-                title: Array.isArray(cells) && cells.length > 0 ? cells.join('  |  ') : 'Linha vazia',
-              };
-            },
-          },
-        },
-      ],
+      name: 'rowsText',
+      title: 'Linhas da Tabela (Uma linha por texto, colunas separadas por | )',
+      type: 'text',
+      rows: 6,
+      placeholder: `Pneu mais largo e volumoso | Testar menos pressão | Estabilidade na curva e aro
+Mais peso ou bagagem | Aumentar suporte | Batidas no aro e deformação
+Piso solto, áspero ou molhado | Reduzir moderadamente | Tração e direção previsível`,
+      description: 'Digite cada linha da tabela em uma nova linha. Separe as colunas com o caractere |',
     }),
   ],
   preview: {
     select: {
       caption: 'caption',
-      headers: 'headers',
-      rows: 'rows',
+      headersText: 'headersText',
     },
-    prepare({ caption, headers, rows }) {
-      const colCount = Array.isArray(headers) ? headers.length : 0;
-      const rowCount = Array.isArray(rows) ? rows.length : 0;
+    prepare({ caption, headersText }) {
       return {
-        title: caption || `Tabela (${colCount} colunas x ${rowCount} linhas)`,
-        subtitle: `📊 Tabela informativa com ${rowCount} linha(s)`,
+        title: caption || 'Tabela Rápida',
+        subtitle: headersText ? `📊 Colunas: ${headersText}` : '📊 Tabela formatada',
       };
     },
   },

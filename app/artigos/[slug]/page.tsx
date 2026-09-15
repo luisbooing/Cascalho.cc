@@ -108,8 +108,24 @@ const portableTextComponents: PortableTextComponents = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     customTable: ({ value }: { value: any }) => {
       if (!value) return null;
-      const headers: string[] = value.headers || [];
-      const rows: any[] = value.rows || [];
+      let headers: string[] = [];
+      let rows: string[][] = [];
+
+      if (value.headersText) {
+        headers = value.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
+      } else if (Array.isArray(value.headers)) {
+        headers = value.headers;
+      }
+
+      if (value.rowsText) {
+        const lines = value.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
+        rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
+      } else if (Array.isArray(value.rows)) {
+        rows = value.rows.map((r: any) => r.cells || []);
+      }
+
+      if (headers.length === 0 && rows.length === 0) return null;
+
       return (
         <div className="my-8 overflow-x-auto rounded-2xl border border-cascalho-ink/20 bg-white shadow-sm">
           {value.caption && (
@@ -130,18 +146,15 @@ const portableTextComponents: PortableTextComponents = {
               </thead>
             )}
             <tbody className="divide-y divide-cascalho-ink/10 text-cascalho-ink/90">
-              {rows.map((row: any, rIdx: number) => {
-                const cells: string[] = row.cells || [];
-                return (
-                  <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
-                    {cells.map((cell: string, cIdx: number) => (
-                      <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
-                        {cell}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
+              {rows.map((cells: string[], rIdx: number) => (
+                <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
+                  {cells.map((cell: string, cIdx: number) => (
+                    <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
