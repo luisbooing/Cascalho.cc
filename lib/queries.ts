@@ -17,7 +17,8 @@ export async function getPosts(): Promise<ArticleItem[]> {
       publishedAt,
       readTime,
       excerpt,
-      "coverImage": coverImage.asset->url
+      "coverImage": coverImage.asset->url,
+      content
     }`;
     const data = await client.fetch<ArticleItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
@@ -44,7 +45,8 @@ export async function getPostBySlug(slug: string): Promise<ArticleItem | undefin
       publishedAt,
       readTime,
       excerpt,
-      "coverImage": coverImage.asset->url
+      "coverImage": coverImage.asset->url,
+      content
     }`;
     const data = await client.fetch<ArticleItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {

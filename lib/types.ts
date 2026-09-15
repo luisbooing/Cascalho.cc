@@ -78,8 +78,10 @@ export interface ArticleItem {
   publishedAt: string;
   readTime: string;
   coverImage: string;
-  contentMarkdown: string;
-  tags: string[];
+  contentMarkdown?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content?: any;
+  tags?: string[];
   isFeatured?: boolean;
 }
 

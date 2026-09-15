@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
 
   const articlePages = posts.map((art) => ({
-    url: `${baseUrl}/reviews/${art.slug}`,
+    url: `${baseUrl}/artigos/${art.slug}`,
     lastModified: new Date(art.publishedAt || Date.now()),
     changeFrequency: 'monthly' as const,
     priority: 0.7,

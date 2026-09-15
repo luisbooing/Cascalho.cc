@@ -49,7 +49,7 @@ export default async function OutdoorHubPage() {
           {outdoorArticles.map((art) => (
             <Link
               key={art.id}
-              href={`/reviews/${art.slug}`}
+              href={`/artigos/${art.slug}`}
               className="bg-white rounded-2xl border border-cascalho-ink/15 overflow-hidden hover:border-cascalho-lime transition duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
             >
               <div>

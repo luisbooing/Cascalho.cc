@@ -107,7 +107,7 @@ export default async function ReviewsPage() {
           {articles.map((art) => (
             <Link
               key={art.id}
-              href={`/reviews/${art.slug}`}
+              href={`/artigos/${art.slug}`}
               className="bg-white p-5 rounded-2xl border border-cascalho-ink/15 hover:border-cascalho-coral transition shadow-sm space-y-2"
             >
               <span className="text-[10px] font-bold uppercase text-cascalho-coral">{art.category}</span>

@@ -48,7 +48,7 @@ export default async function HomePage() {
             {articles.slice(0, 3).map((art) => (
               <Link
                 key={art.id}
-                href={`/reviews/${art.slug}`}
+                href={`/artigos/${art.slug}`}
                 className="group bg-white rounded-2xl border border-cascalho-ink/15 overflow-hidden hover:border-cascalho-coral transition duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
               >
                 <div>
@@ -150,7 +150,7 @@ export default async function HomePage() {
 
               <div>
                 <Link
-                  href={`/reviews/${featuredArticle.slug}`}
+                  href={`/artigos/${featuredArticle.slug}`}
                   className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-cascalho-ink hover:bg-black text-cascalho-paper font-bold text-xs transition shadow"
                 >
                   Ler Artigo Completo de Pensamento <ArrowRight className="w-4 h-4 text-cascalho-sun" />

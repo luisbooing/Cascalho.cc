@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { ShieldCheck, CheckCircle2, AlertTriangle, Clock, ArrowLeft, ExternalLink, ThumbsUp, ThumbsDown, Info } from 'lucide-react';
 import { getReviewBySlug, getPostBySlug, getReviews, getPosts } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
@@ -22,18 +22,19 @@ export async function generateStaticParams() {
 
 export default async function ReviewDetailPage({ params }: Props) {
   const review = await getReviewBySlug(params.slug);
-  const article = await getPostBySlug(params.slug);
 
-  if (!review && !article) {
+  if (!review) {
+    const article = await getPostBySlug(params.slug);
+    if (article) {
+      redirect(`/artigos/${params.slug}`);
+    }
     notFound();
   }
 
-  // If it's a review
-  if (review) {
-    const { methodology } = review;
+  const { methodology } = review;
 
-    return (
-      <article className="py-12 bg-cascalho-paper min-h-screen">
+  return (
+    <article className="py-12 bg-cascalho-paper min-h-screen">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           
           {/* Back button */}
@@ -231,45 +232,4 @@ export default async function ReviewDetailPage({ params }: Props) {
         </div>
       </article>
     );
-  }
-
-  // If it's a standard article
-  return (
-    <article className="py-12 bg-cascalho-paper min-h-screen">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-        
-        <Link
-          href="/"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-cascalho-coral hover:text-cascalho-magenta transition"
-        >
-          <ArrowLeft className="w-4 h-4" /> Voltar para o início
-        </Link>
-
-        <header className="space-y-3">
-          <span className="bg-cascalho-ink text-cascalho-sun px-3 py-1 rounded-full text-xs font-bold uppercase">
-            {article?.category}
-          </span>
-          <h1 className="text-3xl sm:text-4xl font-black text-cascalho-ink leading-tight">
-            {article?.title}
-          </h1>
-          <p className="text-sm text-cascalho-muted font-semibold">
-            Por {article?.author} • {article?.publishedAt} • {article?.readTime}
-          </p>
-        </header>
-
-        {article?.coverImage && (
-          <div className="relative h-72 sm:h-96 w-full rounded-2xl overflow-hidden border border-cascalho-ink/15 shadow">
-            <Image src={article.coverImage} alt={article.title} fill className="object-cover" />
-          </div>
-        )}
-
-        <div className="bg-white p-6 sm:p-8 rounded-2xl border border-cascalho-ink/15 text-sm leading-relaxed text-cascalho-ink/90 space-y-4 font-normal">
-          {(article?.contentMarkdown || article?.excerpt || '').split('\n\n').map((paragraph: string, idx: number) => (
-            <p key={idx}>{paragraph}</p>
-          ))}
-        </div>
-
-      </div>
-    </article>
-  );
 }
