@@ -48,6 +48,8 @@ export interface ReviewItem {
   methodology: ReviewMethodology;
   verdict: string;
   affiliateProducts: AffiliateProduct[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  content?: any;
   fullContentHtml?: string;
   youtubeId?: string;
 }

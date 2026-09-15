@@ -77,7 +77,8 @@ export async function getReviews(): Promise<ReviewItem[]> {
       methodology,
       pros,
       cons,
-      verdict
+      verdict,
+      content
     }`;
     const data = await client.fetch<ReviewItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
@@ -108,7 +109,8 @@ export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefi
       methodology,
       pros,
       cons,
-      verdict
+      verdict,
+      content
     }`;
     const data = await client.fetch<ReviewItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {

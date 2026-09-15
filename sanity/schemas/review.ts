@@ -90,5 +90,11 @@ export const reviewSchema = defineType({
       type: 'text',
       rows: 4,
     }),
+    defineField({
+      name: 'content',
+      title: 'Conteúdo Completo do Review',
+      type: 'array',
+      of: [{ type: 'block' }, { type: 'image' }, { type: 'customTable' }, { type: 'calloutBox' }],
+    }),
   ],
 });

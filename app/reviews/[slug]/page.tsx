@@ -3,8 +3,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import { ShieldCheck, CheckCircle2, AlertTriangle, Clock, ArrowLeft, ExternalLink, ThumbsUp, ThumbsDown, Info } from 'lucide-react';
+import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { getReviewBySlug, getPostBySlug, getReviews, getPosts } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
+import { urlFor } from '@/sanity/image';
 
 interface Props {
   params: {
@@ -226,6 +228,119 @@ export default async function ReviewDetailPage({ params }: Props) {
               </div>
             )}
           </section>
+
+          {/* Conteúdo Modular do Review (se preenchido no CMS) */}
+          {Array.isArray(review.content) && review.content.length > 0 && (
+            <section className="bg-white p-6 sm:p-10 rounded-3xl border border-cascalho-ink/15 shadow-sm">
+              <h3 className="text-xl font-black text-cascalho-ink mb-6 border-b border-cascalho-ink/10 pb-3">
+                Análise Detalhada em Campo
+              </h3>
+              <div className="prose prose-lg max-w-none">
+                <PortableText
+                  value={review.content}
+                  components={{
+                    types: {
+                      image: ({ value }: { value: any }) => {
+                        if (!value?.asset?._ref && !value?.asset?.url) return null;
+                        const imageUrl = value.asset?.url || (value ? urlFor(value).url() : '');
+                        if (!imageUrl) return null;
+                        return (
+                          <figure className="my-8 rounded-2xl overflow-hidden border border-cascalho-ink/15 shadow-sm">
+                            <Image
+                              src={imageUrl}
+                              alt={value.alt || 'Foto do teste'}
+                              width={1200}
+                              height={675}
+                              className="w-full h-auto max-h-[500px] object-cover"
+                            />
+                            {value.caption && (
+                              <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">
+                                {value.caption}
+                              </figcaption>
+                            )}
+                          </figure>
+                        );
+                      },
+                      customTable: ({ value }: { value: any }) => {
+                        if (!value) return null;
+                        let headers: string[] = [];
+                        let rows: string[][] = [];
+                        if (value.headersText) {
+                          headers = value.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
+                        }
+                        if (value.rowsText) {
+                          const lines = value.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
+                          rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
+                        }
+                        if (headers.length === 0 && rows.length === 0) return null;
+                        return (
+                          <div className="my-8 overflow-x-auto rounded-2xl border border-cascalho-ink/20 bg-white shadow-sm">
+                            {value.caption && (
+                              <div className="px-5 py-3 font-extrabold text-xs sm:text-sm text-cascalho-ink bg-cascalho-surface border-b border-cascalho-ink/15">
+                                📊 {value.caption}
+                              </div>
+                            )}
+                            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                              {headers.length > 0 && (
+                                <thead>
+                                  <tr className="bg-cascalho-ink text-cascalho-paper font-bold border-b border-cascalho-ink/10">
+                                    {headers.map((h: string, idx: number) => (
+                                      <th key={idx} className="p-3.5 sm:p-4 font-extrabold border-r last:border-r-0 border-white/10">
+                                        {h}
+                                      </th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                              )}
+                              <tbody className="divide-y divide-cascalho-ink/10 text-cascalho-ink/90">
+                                {rows.map((cells: string[], rIdx: number) => (
+                                  <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
+                                    {cells.map((cell: string, cIdx: number) => (
+                                      <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
+                                        {cell}
+                                      </td>
+                                    ))}
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                        );
+                      },
+                      calloutBox: ({ value }: { value: any }) => {
+                        if (!value) return null;
+                        const type = value.type || 'info';
+                        const styles: Record<string, { bg: string; border: string; text: string; icon: string }> = {
+                          info: { bg: 'bg-cascalho-teal/10', border: 'border-cascalho-teal', text: 'text-cascalho-teal', icon: '💡' },
+                          warning: { bg: 'bg-cascalho-coral/10', border: 'border-cascalho-coral', text: 'text-cascalho-coral', icon: '⚠️' },
+                          tip: { bg: 'bg-cascalho-orange/10', border: 'border-cascalho-orange', text: 'text-cascalho-orange', icon: '📌' },
+                          quote: { bg: 'bg-cascalho-paper', border: 'border-cascalho-magenta', text: 'text-cascalho-magenta', icon: '💬' },
+                        };
+                        const style = styles[type] || styles.info;
+                        return (
+                          <div className={`my-8 p-5 sm:p-6 rounded-2xl border-l-4 ${style.border} ${style.bg} shadow-sm space-y-2`}>
+                            {value.title && (
+                              <h4 className={`text-sm sm:text-base font-extrabold flex items-center gap-2 ${style.text}`}>
+                                <span>{style.icon}</span> {value.title}
+                              </h4>
+                            )}
+                            <p className="text-sm sm:text-base text-cascalho-ink/90 font-medium leading-relaxed">
+                              {value.text}
+                            </p>
+                          </div>
+                        );
+                      },
+                    },
+                    block: {
+                      h2: ({ children }) => <h2 className="text-2xl font-serif font-bold text-cascalho-ink mt-8 mb-4">{children}</h2>,
+                      h3: ({ children }) => <h3 className="text-xl font-serif font-bold text-cascalho-ink mt-6 mb-3">{children}</h3>,
+                      normal: ({ children }) => <p className="text-base leading-relaxed text-cascalho-ink/90 mb-4 font-sans">{children}</p>,
+                    },
+                  }}
+                />
+              </div>
+            </section>
+          )}
 
           {/* Veredito Final */}
           <section className="bg-gradient-paper p-6 sm:p-8 rounded-3xl border-2 border-cascalho-ink/20 space-y-3">
