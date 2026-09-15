@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   description: "Casa autoral para pedalar gravel, correr em trilhas e viver ao ar livre. Equipamentos, rotas e relatos testados de verdade por George Volpão e equipe.",
   keywords: ["Gravel", "Trail Running", "Bicicleta de Entrada", "Pneus Gravel", "Montanha", "Curitiba", "Reviews de Equipamentos", "George Volpão"],
   authors: [{ name: "George Volpão" }, { name: "Patricia Fontana" }],
+  alternates: {
+    canonical: "./",
+  },
   openGraph: {
     title: "Cascalho.CC — Pedalar, correr e pensar",
     description: "Equipamentos, rotas e histórias de vida ao ar livre — testados sem conversa de vendedor.",

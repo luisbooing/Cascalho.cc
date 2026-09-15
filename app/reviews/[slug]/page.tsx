@@ -20,6 +20,26 @@ export async function generateStaticParams() {
   return [...reviewSlugs, ...articleSlugs];
 }
 
+export async function generateMetadata({ params }: Props) {
+  const review = await getReviewBySlug(params.slug);
+  if (!review) return { title: 'Review não encontrado — Cascalho.CC' };
+  const canonicalUrl = `https://cascalho.cc/reviews/${params.slug}`;
+  return {
+    title: `${review.title} — Cascalho.CC`,
+    description: review.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${review.title} — Cascalho.CC`,
+      description: review.excerpt,
+      url: canonicalUrl,
+      type: 'article',
+      images: review.coverImage ? [{ url: review.coverImage, width: 1200, height: 675, alt: review.title }] : [],
+    },
+  };
+}
+
 export default async function ReviewDetailPage({ params }: Props) {
   const review = await getReviewBySlug(params.slug);
 

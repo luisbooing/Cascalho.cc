@@ -23,9 +23,22 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const article = await getPostBySlug(params.slug);
   if (!article) return { title: 'Artigo não encontrado — Cascalho.CC' };
+  const canonicalUrl = `https://cascalho.cc/artigos/${params.slug}`;
   return {
     title: `${article.title} — Cascalho.CC`,
     description: article.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${article.title} — Cascalho.CC`,
+      description: article.excerpt,
+      url: canonicalUrl,
+      type: 'article',
+      publishedTime: article.publishedAt,
+      authors: [article.author || 'George Volpão'],
+      images: article.coverImage ? [{ url: article.coverImage, width: 1200, height: 675, alt: article.title }] : [],
+    },
   };
 }
 
@@ -37,14 +50,14 @@ const portableTextComponents: PortableTextComponents = {
       if (!imageUrl) return null;
       return (
         <figure className="my-8 rounded-2xl overflow-hidden border border-cascalho-ink/15 shadow-sm">
-          <div className="relative w-full h-80 sm:h-96 bg-cascalho-ink/5">
-            <Image
-              src={imageUrl}
-              alt={value.alt || 'Imagem do artigo'}
-              fill
-              className="object-cover"
-            />
-          </div>
+          <Image
+            src={imageUrl}
+            alt={value.alt || 'Imagem do artigo'}
+            width={1200}
+            height={675}
+            className="w-full h-auto max-h-[500px] object-cover"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
           {value.caption && (
             <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">
               {value.caption}
@@ -206,13 +219,15 @@ export default async function ArticleDetailPage({ params }: Props) {
 
         {/* Cover Image */}
         {article.coverImage && (
-          <div className="relative h-80 sm:h-[450px] w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/15 shadow-md">
+          <div className="w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/15 shadow-md">
             <Image
               src={article.coverImage}
               alt={article.title}
-              fill
-              className="object-cover"
+              width={1200}
+              height={675}
+              className="w-full h-auto max-h-[480px] object-cover"
               priority
+              sizes="(max-width: 768px) 100vw, 900px"
             />
           </div>
         )}

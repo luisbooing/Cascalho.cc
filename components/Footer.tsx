@@ -74,9 +74,9 @@ export default function Footer() {
 
           {/* Col 2: Editoriais */}
           <div className="space-y-3">
-            <h3 className="text-sm font-extrabold uppercase tracking-wider text-cascalho-sun border-b border-cascalho-sun/20 pb-2">
+            <p className="text-sm font-extrabold uppercase tracking-wider text-cascalho-sun border-b border-cascalho-sun/20 pb-2">
               Navegação Editorial
-            </h3>
+            </p>
             <ul className="space-y-2 text-xs font-medium">
               <li>
                 <Link href="/gravel" className="hover:text-cascalho-coral transition flex items-center gap-1.5">
@@ -113,9 +113,9 @@ export default function Footer() {
 
           {/* Col 3: Transparência & Projeto */}
           <div className="space-y-3">
-            <h3 className="text-sm font-extrabold uppercase tracking-wider text-cascalho-sun border-b border-cascalho-sun/20 pb-2">
+            <p className="text-sm font-extrabold uppercase tracking-wider text-cascalho-sun border-b border-cascalho-sun/20 pb-2">
               Transparência & Apoio
-            </h3>
+            </p>
             <ul className="space-y-2 text-xs font-medium">
               <li>
                 <Link href="/sobre" className="hover:text-cascalho-sun transition">
@@ -147,9 +147,9 @@ export default function Footer() {
 
           {/* Col 4: Newsletter sem Spams */}
           <div className="space-y-3 bg-white/5 p-4 rounded-2xl border border-white/10">
-            <h3 className="text-sm font-extrabold uppercase tracking-wider text-cascalho-paper flex items-center gap-1.5">
+            <p className="text-sm font-extrabold uppercase tracking-wider text-cascalho-paper flex items-center gap-1.5">
               <Mail className="w-4 h-4 text-cascalho-coral" /> Newsletter Sem Jabá
-            </h3>
+            </p>
             <p className="text-[11px] text-cascalho-paper/80 leading-snug">
               Resumo quinzenal de testes reais, vídeos novos e histórias de montanha na sua caixa de entrada.
             </p>
