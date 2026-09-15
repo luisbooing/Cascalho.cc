@@ -230,7 +230,111 @@ export default async function ReviewDetailPage({ params }: Props) {
           </section>
 
           {/* Conteúdo Modular do Review (se preenchido no CMS) */}
-          {Array.isArray(review.content) && review.content.length > 0 && (
+          {Array.isArray(review.modules) && review.modules.length > 0 ? (
+            <section className="bg-white p-6 sm:p-10 rounded-3xl border border-cascalho-ink/15 shadow-sm space-y-8">
+              <h3 className="text-xl font-black text-cascalho-ink border-b border-cascalho-ink/10 pb-3">
+                Análise Detalhada em Campo
+              </h3>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {review.modules.map((module: any, idx: number) => {
+                if (module._type === 'textBlock' && module.text) {
+                  return (
+                    <div key={module._key || idx} className="prose prose-lg max-w-none">
+                      <PortableText value={module.text} />
+                    </div>
+                  );
+                }
+                if (module._type === 'imageBlock') {
+                  const imgUrl = module.imageUrl || (module.image ? urlFor(module.image).url() : '');
+                  if (!imgUrl) return null;
+                  return (
+                    <figure key={module._key || idx} className="my-8 rounded-2xl overflow-hidden border border-cascalho-ink/15 shadow-sm">
+                      <Image
+                        src={imgUrl}
+                        alt={module.alt || 'Foto do teste'}
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto max-h-[500px] object-cover"
+                      />
+                      {module.caption && (
+                        <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">
+                          {module.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  );
+                }
+                if (module._type === 'customTable') {
+                  let headers: string[] = [];
+                  let rows: string[][] = [];
+                  if (module.headersText) {
+                    headers = module.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
+                  }
+                  if (module.rowsText) {
+                    const lines = module.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
+                    rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
+                  }
+                  if (headers.length === 0 && rows.length === 0) return null;
+                  return (
+                    <div key={module._key || idx} className="my-8 overflow-x-auto rounded-2xl border border-cascalho-ink/20 bg-white shadow-sm">
+                      {module.caption && (
+                        <div className="px-5 py-3 font-extrabold text-xs sm:text-sm text-cascalho-ink bg-cascalho-surface border-b border-cascalho-ink/15">
+                          📊 {module.caption}
+                        </div>
+                      )}
+                      <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                        {headers.length > 0 && (
+                          <thead>
+                            <tr className="bg-cascalho-ink text-cascalho-paper font-bold border-b border-cascalho-ink/10">
+                              {headers.map((h: string, i: number) => (
+                                <th key={i} className="p-3.5 sm:p-4 font-extrabold border-r last:border-r-0 border-white/10">
+                                  {h}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                        )}
+                        <tbody className="divide-y divide-cascalho-ink/10 text-cascalho-ink/90">
+                          {rows.map((cells: string[], rIdx: number) => (
+                            <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
+                              {cells.map((cell: string, cIdx: number) => (
+                                <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  );
+                }
+                if (module._type === 'calloutBox') {
+                  const type = module.type || 'info';
+                  const styles: Record<string, { bg: string; border: string; text: string; icon: string }> = {
+                    info: { bg: 'bg-cascalho-teal/10', border: 'border-cascalho-teal', text: 'text-cascalho-teal', icon: '💡' },
+                    warning: { bg: 'bg-cascalho-coral/10', border: 'border-cascalho-coral', text: 'text-cascalho-coral', icon: '⚠️' },
+                    tip: { bg: 'bg-cascalho-orange/10', border: 'border-cascalho-orange', text: 'text-cascalho-orange', icon: '📌' },
+                    quote: { bg: 'bg-cascalho-paper', border: 'border-cascalho-magenta', text: 'text-cascalho-magenta', icon: '💬' },
+                  };
+                  const style = styles[type] || styles.info;
+                  return (
+                    <div key={module._key || idx} className={`my-8 p-5 sm:p-6 rounded-2xl border-l-4 ${style.border} ${style.bg} shadow-sm space-y-2`}>
+                      {module.title && (
+                        <h4 className={`text-sm sm:text-base font-extrabold flex items-center gap-2 ${style.text}`}>
+                          <span>{style.icon}</span> {module.title}
+                        </h4>
+                      )}
+                      <p className="text-sm sm:text-base text-cascalho-ink/90 font-medium leading-relaxed font-sans">
+                        {module.text}
+                      </p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </section>
+          ) : Array.isArray(review.content) && review.content.length > 0 ? (
             <section className="bg-white p-6 sm:p-10 rounded-3xl border border-cascalho-ink/15 shadow-sm">
               <h3 className="text-xl font-black text-cascalho-ink mb-6 border-b border-cascalho-ink/10 pb-3">
                 Análise Detalhada em Campo
@@ -340,7 +444,7 @@ export default async function ReviewDetailPage({ params }: Props) {
                 />
               </div>
             </section>
-          )}
+          ) : null}
 
           {/* Veredito Final */}
           <section className="bg-gradient-paper p-6 sm:p-8 rounded-3xl border-2 border-cascalho-ink/20 space-y-3">

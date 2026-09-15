@@ -18,6 +18,14 @@ export async function getPosts(): Promise<ArticleItem[]> {
       readTime,
       excerpt,
       "coverImage": coverImage.asset->url,
+      modules[] {
+        ...,
+        _type == "imageBlock" => {
+          "imageUrl": image.asset->url,
+          caption,
+          alt
+        }
+      },
       content
     }`;
     const data = await client.fetch<ArticleItem[]>(groq, {}, { next: { revalidate: 10 } });
@@ -46,6 +54,14 @@ export async function getPostBySlug(slug: string): Promise<ArticleItem | undefin
       readTime,
       excerpt,
       "coverImage": coverImage.asset->url,
+      modules[] {
+        ...,
+        _type == "imageBlock" => {
+          "imageUrl": image.asset->url,
+          caption,
+          alt
+        }
+      },
       content
     }`;
     const data = await client.fetch<ArticleItem>(groq, { slug }, { next: { revalidate: 10 } });
@@ -78,6 +94,14 @@ export async function getReviews(): Promise<ReviewItem[]> {
       pros,
       cons,
       verdict,
+      modules[] {
+        ...,
+        _type == "imageBlock" => {
+          "imageUrl": image.asset->url,
+          caption,
+          alt
+        }
+      },
       content
     }`;
     const data = await client.fetch<ReviewItem[]>(groq, {}, { next: { revalidate: 10 } });
@@ -110,6 +134,14 @@ export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefi
       pros,
       cons,
       verdict,
+      modules[] {
+        ...,
+        _type == "imageBlock" => {
+          "imageUrl": image.asset->url,
+          caption,
+          alt
+        }
+      },
       content
     }`;
     const data = await client.fetch<ReviewItem>(groq, { slug }, { next: { revalidate: 10 } });

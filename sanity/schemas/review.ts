@@ -91,10 +91,27 @@ export const reviewSchema = defineType({
       rows: 4,
     }),
     defineField({
+      name: 'modules',
+      title: 'Módulos do Review (Blocos Independentes)',
+      description: 'Adicione blocos separados (Texto, Tabela Rápida, Bloco de Destaque, Imagem) fora da caixa de texto.',
+      type: 'array',
+      of: [
+        { type: 'textBlock' },
+        { type: 'customTable' },
+        { type: 'calloutBox' },
+        { type: 'imageBlock' },
+      ],
+    }),
+    defineField({
       name: 'content',
       title: 'Conteúdo Completo do Review',
       type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }, { type: 'customTable' }, { type: 'calloutBox' }],
+      of: [
+        { type: 'block' },
+        { type: 'image' },
+        { type: 'customTable', title: 'Tabela Rápida' },
+        { type: 'calloutBox', title: 'Bloco de Destaque' },
+      ],
     }),
   ],
 });

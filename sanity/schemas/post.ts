@@ -69,10 +69,27 @@ export const postSchema = defineType({
       },
     }),
     defineField({
-      name: 'content',
-      title: 'Conteúdo do Artigo',
+      name: 'modules',
+      title: 'Módulos do Artigo (Blocos Independentes)',
+      description: 'Adicione blocos separados (Texto, Tabela Rápida, Bloco de Destaque, Imagem) fora da caixa de texto. Mova-os para a ordem que desejar.',
       type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }, { type: 'customTable' }, { type: 'calloutBox' }],
+      of: [
+        { type: 'textBlock' },
+        { type: 'customTable' },
+        { type: 'calloutBox' },
+        { type: 'imageBlock' },
+      ],
+    }),
+    defineField({
+      name: 'content',
+      title: 'Conteúdo Simples (Texto Único)',
+      type: 'array',
+      of: [
+        { type: 'block' },
+        { type: 'image' },
+        { type: 'customTable', title: 'Tabela Rápida' },
+        { type: 'calloutBox', title: 'Bloco de Destaque' },
+      ],
     }),
   ],
 });

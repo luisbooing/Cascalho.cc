@@ -1,9 +1,11 @@
 import { defineField, defineType } from 'sanity';
+import { Lightbulb } from 'lucide-react';
 
 export const calloutBoxSchema = defineType({
   name: 'calloutBox',
-  title: 'Bloco de Destaque / Caixa de Informação',
+  title: 'Bloco de Destaque',
   type: 'object',
+  icon: Lightbulb,
   fields: [
     defineField({
       name: 'type',
@@ -39,7 +41,9 @@ export const calloutBoxSchema = defineType({
       text: 'text',
       type: 'type',
     },
-    prepare({ title, text, type }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    prepare(selection: Record<string, any>) {
+      const { title, text, type } = selection;
       const typeIcons: Record<string, string> = {
         info: '💡',
         warning: '⚠️',

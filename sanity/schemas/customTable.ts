@@ -1,12 +1,11 @@
 import { defineField, defineType } from 'sanity';
+import { Table } from 'lucide-react';
 
 export const customTableSchema = defineType({
   name: 'customTable',
-  title: 'Tabela Rápida (Texto)',
+  title: 'Tabela Rápida',
   type: 'object',
-  options: {
-    modal: { type: 'dialog', width: 'auto' },
-  },
+  icon: Table,
   fields: [
     defineField({
       name: 'caption',
@@ -36,7 +35,9 @@ Piso solto, áspero ou molhado | Reduzir moderadamente | Tração e direção pr
       caption: 'caption',
       headersText: 'headersText',
     },
-    prepare({ caption, headersText }) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    prepare(selection: Record<string, any>) {
+      const { caption, headersText } = selection;
       return {
         title: caption || 'Tabela Rápida',
         subtitle: headersText ? `📊 Colunas: ${headersText}` : '📊 Tabela formatada',

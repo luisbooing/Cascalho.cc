@@ -49,6 +49,8 @@ export interface ReviewItem {
   verdict: string;
   affiliateProducts: AffiliateProduct[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  modules?: any[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any;
   fullContentHtml?: string;
   youtubeId?: string;
@@ -81,6 +83,8 @@ export interface ArticleItem {
   readTime: string;
   coverImage: string;
   contentMarkdown?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  modules?: any[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   content?: any;
   tags?: string[];

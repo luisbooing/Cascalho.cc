@@ -334,7 +334,51 @@ export default async function ArticleDetailPage({ params }: Props) {
 
         {/* Article Body Content */}
         <section className="bg-white p-6 sm:p-10 rounded-3xl border border-cascalho-ink/15 shadow-sm">
-          {Array.isArray(article.content) && article.content.length > 0 ? (
+          {Array.isArray(article.modules) && article.modules.length > 0 ? (
+            <div className="space-y-8">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+              {article.modules.map((module: any, idx: number) => {
+                if (module._type === 'textBlock' && module.text) {
+                  return (
+                    <div key={module._key || idx} className="prose prose-lg max-w-none">
+                      <PortableText value={module.text} components={portableTextComponents} />
+                    </div>
+                  );
+                }
+                if (module._type === 'customTable') {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const TableComp = portableTextComponents.types?.customTable as any;
+                  return TableComp ? <TableComp key={module._key || idx} value={module} /> : null;
+                }
+                if (module._type === 'calloutBox') {
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  const CalloutComp = portableTextComponents.types?.calloutBox as any;
+                  return CalloutComp ? <CalloutComp key={module._key || idx} value={module} /> : null;
+                }
+                if (module._type === 'imageBlock') {
+                  const imgUrl = module.imageUrl || (module.image ? urlFor(module.image).url() : '');
+                  if (!imgUrl) return null;
+                  return (
+                    <figure key={module._key || idx} className="my-8 rounded-2xl overflow-hidden border border-cascalho-ink/15 shadow-sm">
+                      <Image
+                        src={imgUrl}
+                        alt={module.alt || 'Imagem do artigo'}
+                        width={1200}
+                        height={675}
+                        className="w-full h-auto max-h-[500px] object-cover"
+                      />
+                      {module.caption && (
+                        <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">
+                          {module.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          ) : Array.isArray(article.content) && article.content.length > 0 ? (
             <div className="prose prose-lg max-w-none">
               <PortableText value={article.content} components={portableTextComponents} />
             </div>
