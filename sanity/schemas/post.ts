@@ -72,7 +72,7 @@ export const postSchema = defineType({
       name: 'content',
       title: 'Conteúdo do Artigo',
       type: 'array',
-      of: [{ type: 'block' }, { type: 'image' }],
+      of: [{ type: 'block' }, { type: 'image' }, { type: 'customTable' }, { type: 'calloutBox' }],
     }),
   ],
 });

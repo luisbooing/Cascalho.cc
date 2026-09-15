@@ -66,6 +66,93 @@ const portableTextComponents: PortableTextComponents = {
         </figure>
       );
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    customTable: ({ value }: { value: any }) => {
+      if (!value) return null;
+      const headers: string[] = value.headers || [];
+      const rows: any[] = value.rows || [];
+      return (
+        <div className="my-8 overflow-x-auto rounded-2xl border border-cascalho-ink/20 bg-white shadow-sm">
+          {value.caption && (
+            <div className="px-5 py-3 font-extrabold text-xs sm:text-sm text-cascalho-ink bg-cascalho-surface border-b border-cascalho-ink/15">
+              📊 {value.caption}
+            </div>
+          )}
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            {headers.length > 0 && (
+              <thead>
+                <tr className="bg-cascalho-ink text-cascalho-paper font-bold border-b border-cascalho-ink/10">
+                  {headers.map((h: string, idx: number) => (
+                    <th key={idx} className="p-3.5 sm:p-4 font-extrabold border-r last:border-r-0 border-white/10">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody className="divide-y divide-cascalho-ink/10 text-cascalho-ink/90">
+              {rows.map((row: any, rIdx: number) => {
+                const cells: string[] = row.cells || [];
+                return (
+                  <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
+                    {cells.map((cell: string, cIdx: number) => (
+                      <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    calloutBox: ({ value }: { value: any }) => {
+      if (!value) return null;
+      const type = value.type || 'info';
+      const styles: Record<string, { bg: string; border: string; text: string; icon: string }> = {
+        info: {
+          bg: 'bg-cascalho-teal/10',
+          border: 'border-cascalho-teal',
+          text: 'text-cascalho-teal',
+          icon: '💡',
+        },
+        warning: {
+          bg: 'bg-cascalho-coral/10',
+          border: 'border-cascalho-coral',
+          text: 'text-cascalho-coral',
+          icon: '⚠️',
+        },
+        tip: {
+          bg: 'bg-cascalho-orange/10',
+          border: 'border-cascalho-orange',
+          text: 'text-cascalho-orange',
+          icon: '📌',
+        },
+        quote: {
+          bg: 'bg-cascalho-paper',
+          border: 'border-cascalho-magenta',
+          text: 'text-cascalho-magenta',
+          icon: '💬',
+        },
+      };
+      const style = styles[type] || styles.info;
+
+      return (
+        <div className={`my-8 p-5 sm:p-6 rounded-2xl border-l-4 ${style.border} ${style.bg} shadow-sm space-y-2`}>
+          {value.title && (
+            <h4 className={`text-sm sm:text-base font-extrabold flex items-center gap-2 ${style.text}`}>
+              <span>{style.icon}</span> {value.title}
+            </h4>
+          )}
+          <p className="text-sm sm:text-base text-cascalho-ink/90 font-medium leading-relaxed font-sans">
+            {value.text}
+          </p>
+        </div>
+      );
+    },
   },
   block: {
     h2: ({ children }) => (
