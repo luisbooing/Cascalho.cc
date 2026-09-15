@@ -6,6 +6,7 @@ import { ArrowLeft, Clock, Calendar, User, Tag } from 'lucide-react';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { getPostBySlug, getPosts } from '@/lib/queries';
 import { urlFor } from '@/sanity/image';
+import { formatDate } from '@/lib/formatters';
 
 interface Props {
   params: {
@@ -231,20 +232,6 @@ const portableTextComponents: PortableTextComponents = {
   },
 };
 
-function formatDate(dateStr?: string) {
-  if (!dateStr) return '';
-  try {
-    const d = new Date(dateStr);
-    if (isNaN(d.getTime())) return dateStr;
-    return d.toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
-  } catch {
-    return dateStr;
-  }
-}
 
 function getCategoryBackLink(category?: string) {
   switch (category) {

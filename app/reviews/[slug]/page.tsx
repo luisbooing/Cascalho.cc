@@ -7,6 +7,7 @@ import { PortableText, PortableTextComponents } from '@portabletext/react';
 import { getReviewBySlug, getPostBySlug, getReviews, getPosts } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
 import { urlFor } from '@/sanity/image';
+import { formatDate } from '@/lib/formatters';
 
 interface Props {
   params: {
@@ -76,7 +77,7 @@ export default async function ReviewDetailPage({ params }: Props) {
               <span>•</span>
               <span>Testado por {review.author}</span>
               <span>•</span>
-              <span className="text-cascalho-muted">Atualizado em {review.updatedAt}</span>
+              <span className="text-cascalho-muted">Atualizado em {formatDate(review.updatedAt || review.publishedAt)}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-cascalho-ink leading-tight">

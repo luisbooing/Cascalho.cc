@@ -7,6 +7,7 @@ import ProblemSelector from '@/components/ProblemSelector';
 import TestedBadgeCard from '@/components/TestedBadgeCard';
 import YouTubeBridgeSection from '@/components/YouTubeBridgeSection';
 import { getPosts, getReviews, getVideos, getAffiliateProducts } from '@/lib/queries';
+import { formatDate } from '@/lib/formatters';
 
 export default async function HomePage() {
   const articles = await getPosts();
@@ -67,7 +68,7 @@ export default async function HomePage() {
                     <div className="flex items-center gap-2 text-[11px] text-cascalho-muted font-medium">
                       <span>{art.author}</span>
                       <span>•</span>
-                      <span>{art.publishedAt}</span>
+                      <span>{formatDate(art.publishedAt)}</span>
                     </div>
                     <h3 className="text-base font-extrabold text-cascalho-ink group-hover:text-cascalho-coral transition-colors leading-snug">
                       {art.title}
