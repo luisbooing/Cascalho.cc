@@ -267,10 +267,14 @@ export default async function ReviewDetailPage({ params }: Props) {
                 if (module._type === 'customTable') {
                   let headers: string[] = [];
                   let rows: string[][] = [];
-                  if (module.headersText) {
+                  if (Array.isArray(module.headers) && module.headers.length > 0) {
+                    headers = module.headers;
+                  } else if (module.headersText) {
                     headers = module.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
                   }
-                  if (module.rowsText) {
+                  if (Array.isArray(module.rows) && module.rows.length > 0) {
+                    rows = module.rows.map((r: any) => (Array.isArray(r?.cells) ? r.cells : []));
+                  } else if (module.rowsText) {
                     const lines = module.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
                     rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
                   }
@@ -369,10 +373,14 @@ export default async function ReviewDetailPage({ params }: Props) {
                         if (!value) return null;
                         let headers: string[] = [];
                         let rows: string[][] = [];
-                        if (value.headersText) {
+                        if (Array.isArray(value.headers) && value.headers.length > 0) {
+                          headers = value.headers;
+                        } else if (value.headersText) {
                           headers = value.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
                         }
-                        if (value.rowsText) {
+                        if (Array.isArray(value.rows) && value.rows.length > 0) {
+                          rows = value.rows.map((r: any) => (Array.isArray(r?.cells) ? r.cells : []));
+                        } else if (value.rowsText) {
                           const lines = value.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
                           rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
                         }

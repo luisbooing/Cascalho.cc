@@ -72,17 +72,17 @@ const portableTextComponents: PortableTextComponents = {
       let headers: string[] = [];
       let rows: string[][] = [];
 
-      if (value.headersText) {
-        headers = value.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
-      } else if (Array.isArray(value.headers)) {
+      if (Array.isArray(value.headers) && value.headers.length > 0) {
         headers = value.headers;
+      } else if (value.headersText) {
+        headers = value.headersText.split(/\||,/).map((s: string) => s.trim()).filter(Boolean);
       }
 
-      if (value.rowsText) {
+      if (Array.isArray(value.rows) && value.rows.length > 0) {
+        rows = value.rows.map((r: any) => (Array.isArray(r?.cells) ? r.cells : []));
+      } else if (value.rowsText) {
         const lines = value.rowsText.split('\n').map((l: string) => l.trim()).filter(Boolean);
         rows = lines.map((line: string) => line.split('|').map((s: string) => s.trim()));
-      } else if (Array.isArray(value.rows)) {
-        rows = value.rows.map((r: any) => r.cells || []);
       }
 
       if (headers.length === 0 && rows.length === 0) return null;

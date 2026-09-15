@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity';
+import { defineField, defineType, defineArrayMember } from 'sanity';
 import { Table } from 'lucide-react';
 
 export const customTableSchema = defineType({
@@ -14,33 +14,71 @@ export const customTableSchema = defineType({
       placeholder: 'ex: Tabela de Ajuste de Pressão de Pneus',
     }),
     defineField({
+      name: 'headers',
+      title: 'Cabeçalhos das Colunas',
+      description: 'Adicione os nomes das colunas da tabela (ex: Coluna 1, Coluna 2)',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'rows',
+      title: 'Linhas da Tabela',
+      description: 'Adicione cada linha e preencha o texto de cada célula',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'tableRow',
+          title: 'Linha da Tabela',
+          fields: [
+            defineField({
+              name: 'cells',
+              title: 'Células desta Linha',
+              description: 'Digite o conteúdo de cada coluna nesta linha',
+              type: 'array',
+              of: [{ type: 'string' }],
+            }),
+          ],
+          preview: {
+            select: { cells: 'cells' },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            prepare(selection: Record<string, any>) {
+              const cells = selection.cells || [];
+              return {
+                title: cells.length > 0 ? cells.join('  |  ') : 'Linha vazia',
+              };
+            },
+          },
+        }),
+      ],
+    }),
+    defineField({
       name: 'headersText',
-      title: 'Cabeçalhos das Colunas (Separados por | ou vírgula)',
+      title: 'Ou Modo Rápido: Cabeçalhos (Separados por | )',
       type: 'string',
-      placeholder: 'Mudança | Tendência de ajuste | O que observar',
+      hidden: ({ parent }) => Array.isArray(parent?.headers) && parent.headers.length > 0,
     }),
     defineField({
       name: 'rowsText',
-      title: 'Linhas da Tabela (Uma linha por texto, colunas separadas por | )',
+      title: 'Ou Modo Rápido: Linhas (Separadas por | )',
       type: 'text',
-      rows: 6,
-      placeholder: `Pneu mais largo e volumoso | Testar menos pressão | Estabilidade na curva e aro
-Mais peso ou bagagem | Aumentar suporte | Batidas no aro e deformação
-Piso solto, áspero ou molhado | Reduzir moderadamente | Tração e direção previsível`,
-      description: 'Digite cada linha da tabela em uma nova linha. Separe as colunas com o caractere |',
+      rows: 4,
+      hidden: ({ parent }) => Array.isArray(parent?.rows) && parent.rows.length > 0,
     }),
   ],
   preview: {
     select: {
       caption: 'caption',
+      headers: 'headers',
       headersText: 'headersText',
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     prepare(selection: Record<string, any>) {
-      const { caption, headersText } = selection;
+      const { caption, headers, headersText } = selection;
+      const cols = Array.isArray(headers) && headers.length > 0 ? headers.join(', ') : headersText;
       return {
-        title: caption || 'Tabela Rápida',
-        subtitle: headersText ? `📊 Colunas: ${headersText}` : '📊 Tabela formatada',
+        title: caption ? `📊 ${caption}` : '📊 Tabela Rápida',
+        subtitle: cols ? `Colunas: ${cols}` : 'Tabela preenchida',
       };
     },
   },
