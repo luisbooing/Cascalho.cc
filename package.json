@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@sanity/image-url": "^1.1.0",
-    "@sanity/table": "^3.1.16",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.453.0",
