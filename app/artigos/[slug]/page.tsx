@@ -67,6 +67,45 @@ const portableTextComponents: PortableTextComponents = {
       );
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    table: ({ value }: { value: any }) => {
+      if (!value || !Array.isArray(value.rows) || value.rows.length === 0) return null;
+      const headerRow = value.rows[0];
+      const bodyRows = value.rows.slice(1);
+      const headerCells: string[] = headerRow?.cells || [];
+
+      return (
+        <div className="my-8 overflow-x-auto rounded-2xl border border-cascalho-ink/20 bg-white shadow-sm">
+          <table className="w-full text-left border-collapse text-xs sm:text-sm">
+            {headerCells.length > 0 && (
+              <thead>
+                <tr className="bg-cascalho-ink text-cascalho-paper font-bold border-b border-cascalho-ink/10">
+                  {headerCells.map((h: string, idx: number) => (
+                    <th key={idx} className="p-3.5 sm:p-4 font-extrabold border-r last:border-r-0 border-white/10">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            )}
+            <tbody className="divide-y divide-cascalho-ink/10 text-cascalho-ink/90">
+              {bodyRows.map((row: any, rIdx: number) => {
+                const cells: string[] = row.cells || [];
+                return (
+                  <tr key={rIdx} className={rIdx % 2 === 0 ? 'bg-white' : 'bg-cascalho-paper/40'}>
+                    {cells.map((cell: string, cIdx: number) => (
+                      <td key={cIdx} className="p-3.5 sm:p-4 font-medium border-r last:border-r-0 border-cascalho-ink/10">
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     customTable: ({ value }: { value: any }) => {
       if (!value) return null;
       const headers: string[] = value.headers || [];
