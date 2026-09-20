@@ -508,8 +508,10 @@ export default async function ReviewDetailPage({ params }: Props) {
               <h3 className="text-xl font-black text-cascalho-ink flex items-center gap-2">
                 <ShieldCheck className="w-6 h-6 text-cascalho-teal" /> Onde encontrar a melhor oferta recomendada
               </h3>
-              <div className="max-w-md">
-                <AffiliateCard product={review.affiliateProducts[0]} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {review.affiliateProducts.map((prod, idx) => (
+                  <AffiliateCard key={prod.id || idx} product={prod} />
+                ))}
               </div>
             </section>
           )}

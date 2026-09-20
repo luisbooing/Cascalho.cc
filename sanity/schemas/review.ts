@@ -115,6 +115,13 @@ export const reviewSchema = defineType({
       rows: 4,
     }),
     defineField({
+      name: 'affiliateProducts',
+      title: 'Equipamentos Afiliados Recomendados',
+      description: 'Selecione o(s) produto(s) de afiliado cadastrado(s) no Sanity para aparecer(em) no card ao final do review.',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'affiliateProduct' }] }],
+    }),
+    defineField({
       name: 'modules',
       title: 'Módulos do Review (Blocos Independentes)',
       description: 'Adicione blocos separados (Texto, Tabela Rápida, Bloco de Destaque, Imagem) fora da caixa de texto.',

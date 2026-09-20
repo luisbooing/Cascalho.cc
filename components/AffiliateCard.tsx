@@ -8,7 +8,12 @@ interface AffiliateCardProps {
 }
 
 export default function AffiliateCard({ product }: AffiliateCardProps) {
-  const isMercadoLivre = product.platform === 'Mercado Livre';
+  const title = product.title || product.name || 'Produto Recomendado';
+  const platform = product.platform || product.storeName || 'Loja Parceira';
+  const isMercadoLivre = (platform || '').toLowerCase().includes('mercado livre');
+  const price = product.price || product.priceEstimate || '';
+  const testedContext = product.testedContext || product.honestContext || '';
+  const disclosure = product.disclosureText || 'Link de afiliado: ao comprar por este link, o Cascalho.CC pode receber uma comissão sem custo adicional para você.';
 
   return (
     <div className="bg-cascalho-paper rounded-2xl border-2 border-cascalho-ink/15 hover:border-cascalho-coral transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden">
@@ -20,45 +25,51 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
             <ShieldCheck className="w-3.5 h-3.5 text-cascalho-lime" /> Escolhas do Cascalho
           </span>
           <span className="bg-cascalho-olive/40 text-cascalho-paper px-2 py-0.5 rounded text-[10px] font-semibold uppercase">
-            Afiliado {product.platform}
+            Afiliado {platform}
           </span>
         </div>
 
         {/* Product Image */}
-        <div className="relative h-48 w-full bg-cascalho-surface border-b border-cascalho-ink/10">
-          <Image
-            src={product.image}
-            alt={product.title}
-            fill
-            className="object-cover"
-          />
-          {product.isEditorPick && (
-            <div className="absolute top-2 left-2 bg-cascalho-coral text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow">
-              ★ Escolha do Editor
-            </div>
-          )}
-        </div>
+        {product.image && (
+          <div className="relative h-48 w-full bg-cascalho-surface border-b border-cascalho-ink/10">
+            <Image
+              src={product.image}
+              alt={title}
+              fill
+              className="object-cover"
+            />
+            {product.isEditorPick && (
+              <div className="absolute top-2 left-2 bg-cascalho-coral text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow">
+                ★ Escolha do Editor
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Details */}
         <div className="p-5 space-y-3">
           <div>
             <h4 className="text-base font-extrabold text-cascalho-ink leading-snug">
-              {product.title}
+              {title}
             </h4>
-            <p className="text-xs text-cascalho-muted mt-0.5 font-medium">
-              {product.model} {product.variant && `• ${product.variant}`}
-            </p>
+            {(product.model || product.variant) && (
+              <p className="text-xs text-cascalho-muted mt-0.5 font-medium">
+                {product.model} {product.variant && `• ${product.variant}`}
+              </p>
+            )}
           </div>
 
           {/* Tested Context Note */}
-          <div className="bg-cascalho-surface p-2.5 rounded-xl border border-cascalho-sun/40 text-[11px] text-cascalho-ink/90 italic">
-            <strong>Contexto do teste:</strong> "{product.testedContext}"
-          </div>
+          {testedContext && (
+            <div className="bg-cascalho-surface p-2.5 rounded-xl border border-cascalho-sun/40 text-[11px] text-cascalho-ink/90 italic">
+              <strong>Contexto do teste:</strong> "{testedContext}"
+            </div>
+          )}
 
           {/* Price & Rating */}
           <div className="flex items-baseline justify-between pt-1">
             <div>
-              <span className="text-xl font-black text-cascalho-ink">{product.price}</span>
+              {price && <span className="text-xl font-black text-cascalho-ink">{price}</span>}
               {product.originalPrice && (
                 <span className="text-xs text-cascalho-muted line-through ml-2 font-medium">
                   {product.originalPrice}
@@ -76,10 +87,12 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
           </div>
 
           {/* Verification Timestamp */}
-          <div className="flex items-center gap-1 text-[10px] text-cascalho-muted pt-1">
-            <Clock className="w-3 h-3 text-cascalho-teal" />
-            <span>Preço e estoque verificados em: {product.checkedAt}</span>
-          </div>
+          {product.checkedAt && (
+            <div className="flex items-center gap-1 text-[10px] text-cascalho-muted pt-1">
+              <Clock className="w-3 h-3 text-cascalho-teal" />
+              <span>Preço e estoque verificados em: {product.checkedAt}</span>
+            </div>
+          )}
 
         </div>
       </div>
@@ -89,23 +102,25 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
         {/* Ostensive Disclosure Text */}
         <div className="bg-cascalho-ink/5 p-2 rounded-lg text-[10px] text-cascalho-ink/80 flex items-start gap-1.5 leading-tight border border-cascalho-ink/10">
           <Info className="w-3.5 h-3.5 text-cascalho-coral shrink-0 mt-0.5" />
-          <span>{product.disclosureText}</span>
+          <span>{disclosure}</span>
         </div>
 
         {/* CTA Button */}
-        <a
-          href={product.affiliateUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`w-full py-3 px-4 rounded-xl font-extrabold text-xs text-white transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
-            isMercadoLivre
-              ? 'bg-cascalho-coral hover:bg-cascalho-magenta'
-              : 'bg-cascalho-teal hover:bg-cascalho-ink'
-          }`}
-        >
-          <span>Ver oferta no {product.platform}</span>
-          <ExternalLink className="w-3.5 h-3.5" />
-        </a>
+        {product.affiliateUrl && (
+          <a
+            href={product.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`w-full py-3 px-4 rounded-xl font-extrabold text-xs text-white transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+              isMercadoLivre
+                ? 'bg-cascalho-coral hover:bg-cascalho-magenta'
+                : 'bg-cascalho-teal hover:bg-cascalho-ink'
+            }`}
+          >
+            <span>Ver oferta no {platform}</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        )}
       </div>
 
     </div>

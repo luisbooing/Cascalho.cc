@@ -2,21 +2,25 @@ export type CategoryType = 'gravel' | 'trail-running' | 'vida-outdoor' | 'review
 
 export interface AffiliateProduct {
   id: string;
-  title: string;
-  model: string;
+  title?: string;
+  name?: string;
+  model?: string;
   variant?: string;
-  platform: 'Mercado Livre' | 'Shopee' | 'Outro';
+  platform?: 'Mercado Livre' | 'Shopee' | 'Outro' | string;
+  storeName?: string;
   seller?: string;
-  price: string;
+  price?: string;
+  priceEstimate?: string;
   originalPrice?: string;
   shippingInfo?: string;
   rating?: number;
   reviewsCount?: number;
   affiliateUrl: string;
-  checkedAt: string;
-  disclosureText: string;
-  category: CategoryType;
-  testedContext: string;
+  checkedAt?: string;
+  disclosureText?: string;
+  category?: CategoryType;
+  testedContext?: string;
+  honestContext?: string;
   image: string;
   isEditorPick?: boolean;
 }

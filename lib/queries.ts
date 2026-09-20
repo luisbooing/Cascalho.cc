@@ -95,6 +95,23 @@ export async function getReviews(): Promise<ReviewItem[]> {
       pros,
       cons,
       verdict,
+      affiliateProducts[]-> {
+        "id": _id,
+        name,
+        "title": name,
+        category,
+        priceEstimate,
+        "price": priceEstimate,
+        testedBadge,
+        testedPeriod,
+        honestContext,
+        "testedContext": honestContext,
+        limitation,
+        affiliateUrl,
+        storeName,
+        "platform": storeName,
+        "image": image.asset->url
+      },
       modules[] {
         ...,
         _type == "imageBlock" => {
@@ -135,6 +152,23 @@ export async function getReviewBySlug(slug: string): Promise<ReviewItem | undefi
       pros,
       cons,
       verdict,
+      affiliateProducts[]-> {
+        "id": _id,
+        name,
+        "title": name,
+        category,
+        priceEstimate,
+        "price": priceEstimate,
+        testedBadge,
+        testedPeriod,
+        honestContext,
+        "testedContext": honestContext,
+        limitation,
+        affiliateUrl,
+        storeName,
+        "platform": storeName,
+        "image": image.asset->url
+      },
       modules[] {
         ...,
         _type == "imageBlock" => {
