@@ -203,7 +203,26 @@ export async function getVideos(): Promise<VideoItem[]> {
       publishedAt,
       duration,
       summary,
-      keyTakeaways
+      keyTakeaways,
+      chapters,
+      transcriptSummary,
+      mentionedProducts[]-> {
+        "id": _id,
+        name,
+        "title": name,
+        category,
+        priceEstimate,
+        "price": priceEstimate,
+        testedBadge,
+        testedPeriod,
+        honestContext,
+        "testedContext": honestContext,
+        limitation,
+        affiliateUrl,
+        storeName,
+        "platform": storeName,
+        "image": image.asset->url
+      }
     }`;
     const data = await client.fetch<VideoItem[]>(groq, {}, { next: { revalidate: 10 } });
     if (data && data.length > 0) {
@@ -229,7 +248,26 @@ export async function getVideoBySlug(slug: string): Promise<VideoItem | undefine
       publishedAt,
       duration,
       summary,
-      keyTakeaways
+      keyTakeaways,
+      chapters,
+      transcriptSummary,
+      mentionedProducts[]-> {
+        "id": _id,
+        name,
+        "title": name,
+        category,
+        priceEstimate,
+        "price": priceEstimate,
+        testedBadge,
+        testedPeriod,
+        honestContext,
+        "testedContext": honestContext,
+        limitation,
+        affiliateUrl,
+        storeName,
+        "platform": storeName,
+        "image": image.asset->url
+      }
     }`;
     const data = await client.fetch<VideoItem>(groq, { slug }, { next: { revalidate: 10 } });
     if (data && data.title) {

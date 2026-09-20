@@ -68,44 +68,50 @@ export default async function VideoDetailPage({ params }: Props) {
         </div>
 
         {/* Capítulos do Vídeo (Briefing Seção 7) */}
-        <section className="bg-white p-6 rounded-3xl border border-cascalho-ink/15 space-y-4 shadow-sm">
-          <h2 className="text-lg font-black text-cascalho-ink flex items-center gap-2 border-b border-cascalho-ink/10 pb-3">
-            <ListOrdered className="w-5 h-5 text-cascalho-coral" /> Capítulos & Minutagem
-          </h2>
+        {Array.isArray(video.chapters) && video.chapters.length > 0 && (
+          <section className="bg-white p-6 rounded-3xl border border-cascalho-ink/15 space-y-4 shadow-sm">
+            <h2 className="text-lg font-black text-cascalho-ink flex items-center gap-2 border-b border-cascalho-ink/10 pb-3">
+              <ListOrdered className="w-5 h-5 text-cascalho-coral" /> Capítulos & Minutagem
+            </h2>
 
-          <div className="space-y-3">
-            {video.chapters.map((ch: { time: string; title: string; desc: string }, idx: number) => (
-              <div key={idx} className="p-3 rounded-xl bg-cascalho-surface border border-cascalho-ink/10 flex items-start gap-3">
-                <span className="font-mono font-bold text-xs bg-cascalho-ink text-cascalho-sun px-2.5 py-1 rounded shrink-0">
-                  {ch.time}
-                </span>
-                <div>
-                  <strong className="text-xs font-bold text-cascalho-ink block">{ch.title}</strong>
-                  <span className="text-xs text-cascalho-muted">{ch.desc}</span>
+            <div className="space-y-3">
+              {video.chapters.map((ch: { time: string; title: string; desc: string }, idx: number) => (
+                <div key={idx} className="p-3 rounded-xl bg-cascalho-surface border border-cascalho-ink/10 flex items-start gap-3">
+                  <span className="font-mono font-bold text-xs bg-cascalho-ink text-cascalho-sun px-2.5 py-1 rounded shrink-0">
+                    {ch.time}
+                  </span>
+                  <div>
+                    <strong className="text-xs font-bold text-cascalho-ink block">{ch.title}</strong>
+                    {ch.desc && <span className="text-xs text-cascalho-muted">{ch.desc}</span>}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Transcrição Editada & Resumo dos Pontos-Chave */}
-        <section className="bg-cascalho-ink text-cascalho-paper p-6 sm:p-8 rounded-3xl border border-cascalho-sun/20 space-y-4 shadow-xl">
-          <h2 className="text-lg font-black text-cascalho-sun flex items-center gap-2">
-            <FileText className="w-5 h-5 text-cascalho-lime" /> Resumo Editorial & Transcrição Editada
-          </h2>
-          <p className="text-xs sm:text-sm text-cascalho-paper/90 leading-relaxed font-normal">
-            {video.transcriptSummary}
-          </p>
-        </section>
+        {video.transcriptSummary && (
+          <section className="bg-cascalho-ink text-cascalho-paper p-6 sm:p-8 rounded-3xl border border-cascalho-sun/20 space-y-4 shadow-xl">
+            <h2 className="text-lg font-black text-cascalho-sun flex items-center gap-2">
+              <FileText className="w-5 h-5 text-cascalho-lime" /> Resumo Editorial & Transcrição Editada
+            </h2>
+            <p className="text-xs sm:text-sm text-cascalho-paper/90 leading-relaxed font-normal">
+              {video.transcriptSummary}
+            </p>
+          </section>
+        )}
 
         {/* Equipamentos Citados no Vídeo */}
         {video.mentionedProducts && video.mentionedProducts.length > 0 && (
-          <section className="space-y-4">
+          <section className="space-y-4 pt-4">
             <h2 className="text-xl font-black text-cascalho-ink flex items-center gap-2">
               <ShoppingBag className="w-6 h-6 text-cascalho-teal" /> Equipamentos Citados Neste Vídeo
             </h2>
-            <div className="max-w-md">
-              <AffiliateCard product={video.mentionedProducts[0]} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {video.mentionedProducts.map((prod, idx) => (
+                <AffiliateCard key={prod.id || idx} product={prod} />
+              ))}
             </div>
           </section>
         )}

@@ -50,5 +50,34 @@ export const videoSchema = defineType({
       type: 'array',
       of: [{ type: 'string' }],
     }),
+    defineField({
+      name: 'chapters',
+      title: 'Capítulos / Minutagem do Vídeo',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          title: 'Capítulo',
+          fields: [
+            defineField({ name: 'time', title: 'Minutagem (ex: 02:15)', type: 'string' }),
+            defineField({ name: 'title', title: 'Título do Capítulo', type: 'string' }),
+            defineField({ name: 'desc', title: 'Descrição Rápida', type: 'string' }),
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'transcriptSummary',
+      title: 'Resumo Editorial & Transcrição Editada',
+      type: 'text',
+      rows: 5,
+    }),
+    defineField({
+      name: 'mentionedProducts',
+      title: 'Equipamentos Citados Neste Vídeo (Afiliados)',
+      description: 'Selecione um ou mais produtos cadastrados no Sanity para aparecerem como Equipamentos Citados no Vídeo.',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'affiliateProduct' }] }],
+    }),
   ],
 });
