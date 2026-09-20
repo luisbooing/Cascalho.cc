@@ -31,7 +31,7 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
 
         {/* Product Image */}
         {product.image && (
-          <div className="relative h-48 w-full bg-cascalho-surface border-b border-cascalho-ink/10">
+          <div className="relative aspect-square w-full bg-cascalho-surface border-b border-cascalho-ink/10">
             <Image
               src={product.image}
               alt={title}
