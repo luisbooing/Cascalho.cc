@@ -15,8 +15,20 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
   const testedContext = product.testedContext || product.honestContext || '';
   const disclosure = product.disclosureText || 'Link de afiliado: ao comprar por este link, o Cascalho.CC pode receber uma comissão sem custo adicional para você.';
 
+  const CardWrapper = product.affiliateUrl ? 'a' : 'div';
+  const wrapperProps = product.affiliateUrl
+    ? {
+        href: product.affiliateUrl,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+      }
+    : {};
+
   return (
-    <div className="bg-cascalho-paper rounded-2xl border-2 border-cascalho-ink/15 hover:border-cascalho-coral transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden">
+    <CardWrapper
+      {...wrapperProps}
+      className="group bg-cascalho-paper rounded-2xl border-2 border-cascalho-ink/15 hover:border-cascalho-coral transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden cursor-pointer block text-left"
+    >
       
       <div>
         {/* Header Badge */}
@@ -31,15 +43,15 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
 
         {/* Product Image */}
         {product.image && (
-          <div className="relative aspect-square w-full bg-cascalho-surface border-b border-cascalho-ink/10">
+          <div className="relative aspect-square w-full bg-cascalho-surface border-b border-cascalho-ink/10 overflow-hidden">
             <Image
               src={product.image}
               alt={title}
               fill
-              className="object-cover"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {product.isEditorPick && (
-              <div className="absolute top-2 left-2 bg-cascalho-coral text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow">
+              <div className="absolute top-2 left-2 bg-cascalho-coral text-white font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow z-10">
                 ★ Escolha do Editor
               </div>
             )}
@@ -49,7 +61,7 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
         {/* Details */}
         <div className="p-5 space-y-3">
           <div>
-            <h4 className="text-base font-extrabold text-cascalho-ink leading-snug">
+            <h4 className="text-base font-extrabold text-cascalho-ink group-hover:text-cascalho-coral transition-colors leading-snug">
               {title}
             </h4>
             {(product.model || product.variant) && (
@@ -117,22 +129,19 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
 
         {/* CTA Button */}
         {product.affiliateUrl && (
-          <a
-            href={product.affiliateUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`w-full py-3 px-4 rounded-xl font-extrabold text-xs text-white transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg ${
+          <div
+            className={`w-full py-3 px-4 rounded-xl font-extrabold text-xs text-white transition-all flex items-center justify-center gap-2 shadow-md group-hover:shadow-lg ${
               isMercadoLivre
-                ? 'bg-cascalho-coral hover:bg-cascalho-magenta'
-                : 'bg-cascalho-teal hover:bg-cascalho-ink'
+                ? 'bg-cascalho-coral group-hover:bg-cascalho-magenta'
+                : 'bg-cascalho-teal group-hover:bg-cascalho-ink'
             }`}
           >
             <span>Ver oferta no {platform}</span>
             <ExternalLink className="w-3.5 h-3.5" />
-          </a>
+          </div>
         )}
       </div>
 
-    </div>
+    </CardWrapper>
   );
 }
