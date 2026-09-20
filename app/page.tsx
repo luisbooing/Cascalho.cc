@@ -6,7 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import ProblemSelector from '@/components/ProblemSelector';
 import TestedBadgeCard from '@/components/TestedBadgeCard';
 import YouTubeBridgeSection from '@/components/YouTubeBridgeSection';
-import { getPosts, getReviews, getVideos, getAffiliateProducts } from '@/lib/queries';
+import { getPosts, getReviews, getVideos, getAffiliateProducts, getProblemGuides } from '@/lib/queries';
 import { formatDate } from '@/lib/formatters';
 
 export default async function HomePage() {
@@ -14,6 +14,7 @@ export default async function HomePage() {
   const reviews = await getReviews();
   const videos = await getVideos();
   const products = await getAffiliateProducts();
+  const problemGuides = await getProblemGuides();
 
   const featuredReview = reviews[0];
   const featuredArticle = articles[0];
@@ -23,6 +24,7 @@ export default async function HomePage() {
       
       {/* Bloco 1 — Abertura autoral */}
       <HeroSection />
+
 
       {/* Bloco 2 — O que está acontecendo agora */}
       <section className="py-14 bg-cascalho-paper border-b border-cascalho-ink/10">
@@ -91,7 +93,7 @@ export default async function HomePage() {
       </section>
 
       {/* Bloco 3 — Escolha pelo problema / momento */}
-      <ProblemSelector />
+      <ProblemSelector guides={problemGuides} />
 
       {/* Bloco 4 — Testado de verdade */}
       <section className="py-14 bg-cascalho-paper border-b border-cascalho-ink/10">

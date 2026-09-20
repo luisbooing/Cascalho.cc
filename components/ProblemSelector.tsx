@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Bike, Footprints, ShieldAlert, ShoppingBag, Compass, ArrowUpRight } from 'lucide-react';
 import { PROBLEM_GUIDES } from '@/lib/data';
+import { ProblemGuideItem } from '@/lib/types';
 
 const iconMap: Record<string, React.ElementType> = {
   Bike: Bike,
@@ -11,7 +12,13 @@ const iconMap: Record<string, React.ElementType> = {
   ShoppingBag: ShoppingBag,
 };
 
-export default function ProblemSelector() {
+interface ProblemSelectorProps {
+  guides?: ProblemGuideItem[];
+}
+
+export default function ProblemSelector({ guides }: ProblemSelectorProps) {
+  const items = guides && guides.length > 0 ? guides : PROBLEM_GUIDES;
+
   return (
     <section className="py-14 bg-cascalho-surface border-b border-cascalho-ink/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,13 +36,16 @@ export default function ProblemSelector() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {PROBLEM_GUIDES.map((guide) => {
+          {items.map((guide) => {
             const IconComponent = iconMap[guide.iconName] || Compass;
+            const href = guide.targetSlug?.startsWith('/')
+              ? guide.targetSlug
+              : `/reviews/${guide.targetSlug}`;
 
             return (
               <Link
                 key={guide.id}
-                href={`/reviews/${guide.targetSlug}`}
+                href={href}
                 className="group relative bg-cascalho-paper p-6 rounded-2xl border border-cascalho-ink/15 hover:border-cascalho-coral transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between"
               >
                 <div className="space-y-3">
@@ -66,3 +76,4 @@ export default function ProblemSelector() {
     </section>
   );
 }
+

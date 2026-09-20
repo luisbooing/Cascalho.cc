@@ -1,6 +1,7 @@
 import { client } from '@/sanity/client';
-import { ARTICLES, REVIEWS, VIDEOS, AFFILIATE_PRODUCTS } from '@/lib/data';
-import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct } from '@/lib/types';
+import { ARTICLES, REVIEWS, VIDEOS, AFFILIATE_PRODUCTS, PROBLEM_GUIDES } from '@/lib/data';
+import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct, ProblemGuideItem } from '@/lib/types';
+
 
 /**
  * Busca todos os artigos (posts) do Sanity CMS com fallback automático para lib/data.ts
@@ -234,3 +235,28 @@ export async function getAffiliateProducts(): Promise<AffiliateProduct[]> {
   }
   return AFFILIATE_PRODUCTS;
 }
+
+/**
+ * Busca os guias/objetivos da home com fallback automático
+ */
+export async function getProblemGuides(): Promise<ProblemGuideItem[]> {
+  if (!client) return PROBLEM_GUIDES;
+  try {
+    const groq = `*[_type == "problemGuide" && !(_id in path("drafts.**"))] | order(order asc) {
+      "id": _id,
+      problemTitle,
+      description,
+      category,
+      targetSlug,
+      iconName
+    }`;
+    const data = await client.fetch<ProblemGuideItem[]>(groq, {}, { next: { revalidate: 10 } });
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return PROBLEM_GUIDES;
+}
+

@@ -6,6 +6,7 @@ import { customTableSchema } from './customTable';
 import { calloutBoxSchema } from './calloutBox';
 import { textBlockSchema } from './textBlock';
 import { imageBlockSchema } from './imageBlock';
+import { problemGuideSchema } from './problemGuide';
 
 export const schemaTypes = [
   postSchema,
@@ -16,4 +17,6 @@ export const schemaTypes = [
   calloutBoxSchema,
   textBlockSchema,
   imageBlockSchema,
+  problemGuideSchema,
 ];
+
