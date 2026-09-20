@@ -3,11 +3,21 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Compass, Bike, Footprints, Video, Star, Heart, Menu, X, Search, Mountain } from 'lucide-react';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/busca?q=${encodeURIComponent(searchQuery.trim())}`);
+      setMobileMenuOpen(false);
+    }
+  };
 
   const navLinks = [
     { href: '/gravel', label: 'Gravel', icon: Bike },
@@ -50,16 +60,18 @@ export default function Header() {
           </Link>
 
           {/* Search bar (Desktop) */}
-          <div className="hidden lg:flex items-center flex-1 max-w-xs mx-8 relative">
+          <form onSubmit={handleSearch} className="hidden lg:flex items-center flex-1 max-w-xs mx-8 relative">
             <input
               type="text"
               placeholder="Buscar pneus, mochilas, rotas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-cascalho-ink/80 text-cascalho-paper placeholder-cascalho-muted/70 text-sm border border-cascalho-paper/20 rounded-full py-2 pl-9 pr-4 focus:outline-none focus:border-cascalho-coral focus:ring-1 focus:ring-cascalho-coral transition"
+              className="w-full bg-cascalho-ink/80 text-cascalho-paper placeholder-cascalho-muted/70 text-sm border border-cascalho-paper/20 rounded-full py-2 pl-9 pr-8 focus:outline-none focus:border-cascalho-coral focus:ring-1 focus:ring-cascalho-coral transition"
             />
-            <Search className="w-4 h-4 text-cascalho-sun absolute left-3 top-2.5" />
-          </div>
+            <button type="submit" aria-label="Buscar" className="absolute left-3 top-2.5 hover:scale-110 transition">
+              <Search className="w-4 h-4 text-cascalho-sun" />
+            </button>
+          </form>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
@@ -107,7 +119,7 @@ export default function Header() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-cascalho-ink border-b border-cascalho-coral/30 px-4 pt-3 pb-6 space-y-3">
-          <div className="relative mb-3">
+          <form onSubmit={handleSearch} className="relative mb-3">
             <input
               type="text"
               placeholder="Buscar no site..."
@@ -115,8 +127,10 @@ export default function Header() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-black/40 text-cascalho-paper placeholder-cascalho-muted text-sm border border-cascalho-paper/20 rounded-lg py-2.5 pl-9 pr-4"
             />
-            <Search className="w-4 h-4 text-cascalho-sun absolute left-3 top-3" />
-          </div>
+            <button type="submit" aria-label="Buscar" className="absolute left-3 top-3">
+              <Search className="w-4 h-4 text-cascalho-sun" />
+            </button>
+          </form>
 
           <div className="grid grid-cols-2 gap-2">
             {navLinks.map((link) => {
