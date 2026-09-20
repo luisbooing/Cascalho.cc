@@ -166,7 +166,7 @@ export default async function HomePage() {
       </section>
 
       {/* Bloco 6 — Ponte para o YouTube */}
-      <YouTubeBridgeSection />
+      <YouTubeBridgeSection video={videos[0]} />
 
       {/* Bloco 7 — Newsletter & Comunidade */}
       <section className="py-16 bg-cascalho-paper border-b border-cascalho-ink/10">

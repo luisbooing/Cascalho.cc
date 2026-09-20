@@ -3,9 +3,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Youtube, PlayCircle, Clock, CheckCircle, ArrowRight } from 'lucide-react';
 import { VIDEOS } from '@/lib/data';
+import { VideoItem } from '@/lib/types';
 
-export default function YouTubeBridgeSection() {
-  const featuredVideo = VIDEOS[0];
+interface YouTubeBridgeSectionProps {
+  video?: VideoItem;
+}
+
+export default function YouTubeBridgeSection({ video }: YouTubeBridgeSectionProps) {
+  const featuredVideo = video || VIDEOS[0];
+  const rawYt = featuredVideo?.youtubeId || featuredVideo?.youtubeUrl || '';
+  const match = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  const ytId = match ? match[1] : rawYt;
 
   return (
     <section className="py-16 bg-cascalho-ink text-cascalho-paper relative overflow-hidden border-y-4 border-cascalho-teal">
@@ -42,22 +50,30 @@ export default function YouTubeBridgeSection() {
           <div className="bg-white/5 rounded-3xl p-6 lg:p-8 border border-white/10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-7 relative group">
-              <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
-                <Image
-                  src={`https://img.youtube.com/vi/${featuredVideo.youtubeId}/hqdefault.jpg`}
-                  alt={featuredVideo.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <Link href={`/videos/${featuredVideo.slug}`} className="block relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                {ytId ? (
+                  <Image
+                    src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
+                    alt={featuredVideo.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-cascalho-surface flex items-center justify-center">
+                    <Youtube className="w-16 h-16 text-cascalho-coral" />
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                   <div className="w-16 h-16 rounded-full bg-cascalho-coral text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform">
                     <PlayCircle className="w-10 h-10 fill-white text-cascalho-coral ml-0.5" />
                   </div>
                 </div>
-                <div className="absolute bottom-3 right-3 bg-black/80 px-2.5 py-1 rounded text-xs font-bold text-cascalho-sun flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" /> {featuredVideo.duration}
-                </div>
-              </div>
+                {featuredVideo.duration && (
+                  <div className="absolute bottom-3 right-3 bg-black/80 px-2.5 py-1 rounded text-xs font-bold text-cascalho-sun flex items-center gap-1">
+                    <Clock className="w-3.5 h-3.5" /> {featuredVideo.duration}
+                  </div>
+                )}
+              </Link>
             </div>
 
             <div className="lg:col-span-5 space-y-4">

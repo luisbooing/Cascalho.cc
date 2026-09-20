@@ -79,6 +79,7 @@ export interface VideoItem {
   publishedAt: string;
   duration?: string;
   summary: string;
+  keyTakeaways?: string[];
   chapters?: { time: string; title: string; desc: string }[];
   transcriptSummary?: string;
   mentionedProducts?: AffiliateProduct[];

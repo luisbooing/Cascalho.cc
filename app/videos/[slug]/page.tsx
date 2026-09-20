@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Youtube, Clock, ArrowLeft, ShieldCheck, ListOrdered, FileText, ShoppingBag } from 'lucide-react';
+import { Youtube, Clock, ArrowLeft, ShieldCheck, ListOrdered, FileText, ShoppingBag, CheckCircle2 } from 'lucide-react';
 import { getVideoBySlug, getVideos } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
 
@@ -95,6 +95,23 @@ export default async function VideoDetailPage({ params }: Props) {
                 </div>
               ))}
             </div>
+          </section>
+        )}
+
+        {/* Principais Pontos Discutidos */}
+        {Array.isArray(video.keyTakeaways) && video.keyTakeaways.length > 0 && (
+          <section className="bg-cascalho-surface p-6 sm:p-8 rounded-3xl border-2 border-cascalho-teal/30 space-y-4 shadow-sm">
+            <h2 className="text-lg font-black text-cascalho-ink flex items-center gap-2 border-b border-cascalho-ink/10 pb-3">
+              <CheckCircle2 className="w-5 h-5 text-cascalho-teal" /> Principais Pontos Discutidos
+            </h2>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm text-cascalho-ink/90 font-medium">
+              {video.keyTakeaways.map((point: string, idx: number) => (
+                <li key={idx} className="flex items-start gap-2 bg-white p-3.5 rounded-xl border border-cascalho-ink/10 shadow-xs">
+                  <span className="text-cascalho-teal font-extrabold">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
           </section>
         )}
 
