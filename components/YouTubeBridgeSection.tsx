@@ -74,17 +74,19 @@ export default function YouTubeBridgeSection() {
               </p>
 
               {/* Chapters Preview */}
-              <div className="space-y-1.5 pt-2 border-t border-white/10">
-                <p className="text-[11px] font-bold text-cascalho-lime uppercase tracking-wider">Capítulos principais:</p>
-                <div className="space-y-1 text-xs text-cascalho-paper/90">
-                  {featuredVideo.chapters.slice(0, 3).map((ch, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <span className="font-mono text-cascalho-sun font-bold text-[11px]">{ch.time}</span>
-                      <span>{ch.title}</span>
-                    </div>
-                  ))}
+              {Array.isArray(featuredVideo.chapters) && featuredVideo.chapters.length > 0 && (
+                <div className="space-y-1.5 pt-2 border-t border-white/10">
+                  <p className="text-[11px] font-bold text-cascalho-lime uppercase tracking-wider">Capítulos principais:</p>
+                  <div className="space-y-1 text-xs text-cascalho-paper/90">
+                    {featuredVideo.chapters.slice(0, 3).map((ch, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="font-mono text-cascalho-sun font-bold text-[11px]">{ch.time}</span>
+                        <span>{ch.title}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               <div className="pt-2">
                 <Link

@@ -74,13 +74,14 @@ export interface VideoItem {
   id: string;
   slug: string;
   title: string;
-  youtubeId: string;
+  youtubeId?: string;
+  youtubeUrl?: string;
   publishedAt: string;
-  duration: string;
+  duration?: string;
   summary: string;
-  chapters: { time: string; title: string; desc: string }[];
-  transcriptSummary: string;
-  mentionedProducts: AffiliateProduct[];
+  chapters?: { time: string; title: string; desc: string }[];
+  transcriptSummary?: string;
+  mentionedProducts?: AffiliateProduct[];
   relatedArticlesSlugs?: string[];
   corrections?: string;
 }

@@ -57,15 +57,23 @@ export default async function VideoDetailPage({ params }: Props) {
         </header>
 
         {/* YouTube Responsive Iframe Player */}
-        <div className="relative aspect-video w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/20 shadow-2xl bg-black">
-          <iframe
-            src={`https://www.youtube.com/embed/${video.youtubeId}`}
-            title={video.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="absolute inset-0 w-full h-full"
-          />
-        </div>
+        {(() => {
+          const rawYt = video.youtubeId || video.youtubeUrl || '';
+          const match = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+          const ytId = match ? match[1] : rawYt;
+
+          return (
+            <div className="relative aspect-video w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/20 shadow-2xl bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${ytId}`}
+                title={video.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          );
+        })()}
 
         {/* Capítulos do Vídeo (Briefing Seção 7) */}
         {Array.isArray(video.chapters) && video.chapters.length > 0 && (
