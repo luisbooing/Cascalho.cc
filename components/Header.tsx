@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Compass, Bike, Footprints, Video, Star, Heart, Menu, X, Search, Mountain } from 'lucide-react';
 
 export default function Header() {
@@ -30,12 +31,13 @@ export default function Header() {
           
           {/* Logo & Tagline */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-sunrise p-0.5 shadow-md group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full bg-cascalho-ink rounded-[14px] flex items-center justify-center">
-                <span className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-sunrise">
-                  .CC
-                </span>
-              </div>
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-cascalho-coral/40 shadow-md group-hover:scale-105 transition-transform duration-300 shrink-0">
+              <Image
+                src="/logo.png"
+                alt="Cascalho.CC Logo"
+                fill
+                className="object-cover"
+              />
             </div>
             <div className="flex flex-col">
               <span className="text-2xl font-black tracking-tight text-cascalho-paper group-hover:text-cascalho-coral transition-colors">

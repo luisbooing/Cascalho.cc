@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Youtube, Instagram, Mail, ShieldCheck, Heart, ArrowRight } from 'lucide-react';
 import { SITE_MANIFESTO } from '@/lib/data';
 
@@ -32,11 +33,21 @@ export default function Footer() {
           
           {/* Col 1: Manifesto & Brand */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
-              <span className="text-2xl font-black text-cascalho-paper tracking-tight">
-                CASCALHO<span className="text-cascalho-coral">.CC</span>
-              </span>
-              <p className="text-xs font-semibold text-cascalho-sun">pedalar • correr • pensar</p>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-cascalho-coral/40 shadow-md shrink-0">
+                <Image
+                  src="/logo.png"
+                  alt="Cascalho.CC Logo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <span className="text-2xl font-black text-cascalho-paper tracking-tight group-hover:text-cascalho-coral transition-colors">
+                  CASCALHO<span className="text-cascalho-coral">.CC</span>
+                </span>
+                <p className="text-xs font-semibold text-cascalho-sun uppercase">pedalar • correr • pensar</p>
+              </div>
             </Link>
 
             <p className="text-xs text-cascalho-paper/80 leading-relaxed font-normal italic bg-white/5 p-3.5 rounded-xl border border-white/10">
