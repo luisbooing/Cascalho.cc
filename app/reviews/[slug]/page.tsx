@@ -54,7 +54,17 @@ export default async function ReviewDetailPage({ params }: Props) {
     notFound();
   }
 
-  const { methodology } = review;
+  const methodology = review.methodology || {};
+  const strongPoints = (review.pros && review.pros.length > 0) ? review.pros : (methodology.strongPoints || []);
+  const limitations = (review.cons && review.cons.length > 0) ? review.cons : (methodology.limitations || []);
+  const productAndVariant = methodology.productAndVariant || review.productName || review.title;
+  const periodOfUse = methodology.periodOfUse;
+  const distanceOrHours = methodology.distanceOrHours;
+  const terrainAndWeather = methodology.terrainAndWeather || methodology.terrain;
+  const configuration = methodology.configuration;
+  const indicatedFor = methodology.indicatedFor || review.verdict;
+  const alternatives = methodology.alternatives || [];
+  const priceAndDate = methodology.priceAndDate;
 
   return (
     <article className="py-12 bg-cascalho-paper min-h-screen">
@@ -72,38 +82,42 @@ export default async function ReviewDetailPage({ params }: Props) {
           <header className="space-y-4">
             <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-cascalho-teal">
               <span className="bg-cascalho-ink text-cascalho-sun px-3 py-1 rounded-full uppercase">
-                {review.category}
+                {review.category || 'Review'}
               </span>
               <span>•</span>
-              <span>Testado por {review.author}</span>
+              <span>Testado por {review.author || 'George Volpão'}</span>
               <span>•</span>
-              <span className="text-cascalho-muted">Atualizado em {formatDate(review.updatedAt || review.publishedAt)}</span>
+              <span className="text-cascalho-muted">Atualizado em {formatDate(review.updatedAt || review.publishedAt || new Date().toISOString())}</span>
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-cascalho-ink leading-tight">
               {review.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-cascalho-ink/80 leading-relaxed font-medium">
-              {review.excerpt}
-            </p>
+            {review.excerpt && (
+              <p className="text-base sm:text-lg text-cascalho-ink/80 leading-relaxed font-medium">
+                {review.excerpt}
+              </p>
+            )}
           </header>
 
           {/* Cover Image */}
-          <div className="relative h-80 sm:h-96 w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/15 shadow-md">
-            <Image
-              src={review.coverImage}
-              alt={review.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute top-4 left-4 bg-cascalho-coral text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow">
-              <ShieldCheck className="w-4 h-4" /> TESTADO EM CONDIÇÕES REAIS
+          {review.coverImage && (
+            <div className="relative h-80 sm:h-96 w-full rounded-3xl overflow-hidden border-2 border-cascalho-ink/15 shadow-md">
+              <Image
+                src={review.coverImage}
+                alt={review.title}
+                fill
+                className="object-cover"
+                priority
+              />
+              <div className="absolute top-4 left-4 bg-cascalho-coral text-white font-extrabold text-xs px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow">
+                <ShieldCheck className="w-4 h-4" /> TESTADO EM CONDIÇÕES REAIS
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* 📋 Tabela Metodológica Completa de 11 Critérios (Breifing Seção 8) */}
+          {/* 📋 Tabela Metodológica Completa de Teste de Campo */}
           <section className="bg-cascalho-ink text-cascalho-paper p-6 sm:p-8 rounded-3xl border border-cascalho-coral/30 space-y-6 shadow-xl">
             <div className="border-b border-white/10 pb-4 flex items-center justify-between">
               <div>
@@ -120,32 +134,40 @@ export default async function ReviewDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
                 <span className="text-cascalho-sun font-bold block mb-0.5">1. Produto & Variante:</span>
-                <span className="text-white font-medium">{methodology.productAndVariant}</span>
+                <span className="text-white font-medium">{productAndVariant}</span>
               </div>
 
-              <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
-                <span className="text-cascalho-sun font-bold block mb-0.5">2. Período de Uso:</span>
-                <span className="text-white font-medium">{methodology.periodOfUse}</span>
-              </div>
+              {periodOfUse && (
+                <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
+                  <span className="text-cascalho-sun font-bold block mb-0.5">2. Período de Uso:</span>
+                  <span className="text-white font-medium">{periodOfUse}</span>
+                </div>
+              )}
 
-              <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
-                <span className="text-cascalho-sun font-bold block mb-0.5">3. Distância / Horas Acumuladas:</span>
-                <span className="text-white font-medium">{methodology.distanceOrHours}</span>
-              </div>
+              {distanceOrHours && (
+                <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
+                  <span className="text-cascalho-sun font-bold block mb-0.5">3. Distância / Horas Acumuladas:</span>
+                  <span className="text-white font-medium">{distanceOrHours}</span>
+                </div>
+              )}
 
-              <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
-                <span className="text-cascalho-sun font-bold block mb-0.5">4. Terreno e Clima de Teste:</span>
-                <span className="text-white font-medium">{methodology.terrainAndWeather}</span>
-              </div>
+              {terrainAndWeather && (
+                <div className="bg-white/5 p-3.5 rounded-xl border border-white/10">
+                  <span className="text-cascalho-sun font-bold block mb-0.5">4. Terreno e Clima de Teste:</span>
+                  <span className="text-white font-medium">{terrainAndWeather}</span>
+                </div>
+              )}
 
-              <div className="bg-white/5 p-3.5 rounded-xl border border-white/10 sm:col-span-2">
-                <span className="text-cascalho-sun font-bold block mb-0.5">5. Configuração / Ajuste Utilizado:</span>
-                <span className="text-white font-medium">{methodology.configuration}</span>
-              </div>
+              {configuration && (
+                <div className="bg-white/5 p-3.5 rounded-xl border border-white/10 sm:col-span-2">
+                  <span className="text-cascalho-sun font-bold block mb-0.5">5. Configuração / Ajuste Utilizado:</span>
+                  <span className="text-white font-medium">{configuration}</span>
+                </div>
+              )}
             </div>
 
             {/* Critérios avaliados */}
-            {methodology?.criteria && (
+            {Array.isArray(methodology.criteria) && methodology.criteria.length > 0 && (
               <div className="space-y-2 pt-2 border-t border-white/10">
                 <span className="text-xs font-bold uppercase text-cascalho-lime block">
                   6. Critérios Específicos Observados:
@@ -164,71 +186,86 @@ export default async function ReviewDetailPage({ params }: Props) {
           </section>
 
           {/* Pontos Fortes vs Limitações */}
-          <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* Pontos Fortes */}
-            <div className="bg-cascalho-surface p-6 rounded-2xl border-2 border-cascalho-teal/40 space-y-3">
-              <h3 className="text-base font-extrabold text-cascalho-ink flex items-center gap-2">
-                <ThumbsUp className="w-5 h-5 text-cascalho-teal" /> 7. Onde o produto entrega (Pontos Fortes)
-              </h3>
-              <ul className="space-y-2 text-xs text-cascalho-ink/90">
-                {(methodology?.strongPoints || []).map((item: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-cascalho-teal font-bold">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {(strongPoints.length > 0 || limitations.length > 0) && (
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              
+              {/* Pontos Fortes */}
+              <div className="bg-cascalho-surface p-6 rounded-2xl border-2 border-cascalho-teal/40 space-y-3">
+                <h3 className="text-base font-extrabold text-cascalho-ink flex items-center gap-2">
+                  <ThumbsUp className="w-5 h-5 text-cascalho-teal" /> 7. Onde o produto entrega (Pontos Fortes)
+                </h3>
+                {strongPoints.length > 0 ? (
+                  <ul className="space-y-2 text-xs text-cascalho-ink/90">
+                    {strongPoints.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <span className="text-cascalho-teal font-bold">•</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-cascalho-muted italic">Nenhum ponto forte destacado.</p>
+                )}
+              </div>
 
-            {/* Limitações */}
-            <div className="bg-cascalho-surface p-6 rounded-2xl border-2 border-cascalho-orange/40 space-y-3">
-              <h3 className="text-base font-extrabold text-cascalho-ink flex items-center gap-2">
-                <ThumbsDown className="w-5 h-5 text-cascalho-coral" /> 8. Onde decepciona (Limitações)
-              </h3>
-              <ul className="space-y-2 text-xs text-cascalho-ink/90">
-                {(methodology?.limitations || []).map((item: string, idx: number) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <AlertTriangle className="w-3.5 h-3.5 text-cascalho-coral shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Limitações */}
+              <div className="bg-cascalho-surface p-6 rounded-2xl border-2 border-cascalho-orange/40 space-y-3">
+                <h3 className="text-base font-extrabold text-cascalho-ink flex items-center gap-2">
+                  <ThumbsDown className="w-5 h-5 text-cascalho-coral" /> 8. Onde decepciona (Limitações)
+                </h3>
+                {limitations.length > 0 ? (
+                  <ul className="space-y-2 text-xs text-cascalho-ink/90">
+                    {limitations.map((item: string, idx: number) => (
+                      <li key={idx} className="flex items-start gap-2">
+                        <AlertTriangle className="w-3.5 h-3.5 text-cascalho-coral shrink-0 mt-0.5" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-cascalho-muted italic">Nenhuma limitação grave observada.</p>
+                )}
+              </div>
 
-          </section>
+            </section>
+          )}
 
           {/* Perfil Indicado & Alternativas */}
-          <section className="bg-white p-6 rounded-2xl border border-cascalho-ink/15 space-y-4">
-            <div>
-              <h4 className="text-sm font-extrabold text-cascalho-ink uppercase tracking-wider text-cascalho-coral">
-                9. Perfil Indicado (Para quem faz sentido):
-              </h4>
-              <p className="text-xs sm:text-sm text-cascalho-ink/90 mt-1 font-medium leading-relaxed">
-                {methodology?.indicatedFor || review.verdict}
-              </p>
-            </div>
+          {(indicatedFor || alternatives.length > 0 || priceAndDate) && (
+            <section className="bg-white p-6 rounded-2xl border border-cascalho-ink/15 space-y-4">
+              {indicatedFor && (
+                <div>
+                  <h4 className="text-sm font-extrabold text-cascalho-ink uppercase tracking-wider text-cascalho-coral">
+                    9. Perfil Indicado (Para quem faz sentido):
+                  </h4>
+                  <p className="text-xs sm:text-sm text-cascalho-ink/90 mt-1 font-medium leading-relaxed">
+                    {indicatedFor}
+                  </p>
+                </div>
+              )}
 
-            {methodology?.alternatives && (
-              <div className="pt-3 border-t border-cascalho-ink/10">
-                <h4 className="text-sm font-extrabold text-cascalho-ink uppercase tracking-wider text-cascalho-teal">
-                  10. Alternativas no Mercado:
-                </h4>
-                <ul className="list-disc list-inside text-xs text-cascalho-muted mt-1 space-y-1">
-                  {methodology.alternatives.map((alt: string, idx: number) => (
-                    <li key={idx}>{alt}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
+              {alternatives.length > 0 && (
+                <div className="pt-3 border-t border-cascalho-ink/10">
+                  <h4 className="text-sm font-extrabold text-cascalho-ink uppercase tracking-wider text-cascalho-teal">
+                    10. Alternativas no Mercado:
+                  </h4>
+                  <ul className="list-disc list-inside text-xs text-cascalho-muted mt-1 space-y-1">
+                    {alternatives.map((alt: string, idx: number) => (
+                      <li key={idx}>{alt}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-            {methodology?.priceAndDate && (
-              <div className="pt-3 border-t border-cascalho-ink/10 text-xs text-cascalho-muted flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-cascalho-sun" />
-                <span><strong>11. Verificação de preço:</strong> {methodology.priceAndDate}</span>
-              </div>
-            )}
-          </section>
+              {priceAndDate && (
+                <div className="pt-3 border-t border-cascalho-ink/10 text-xs text-cascalho-muted flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-cascalho-sun" />
+                  <span><strong>11. Verificação de preço:</strong> {priceAndDate}</span>
+                </div>
+              )}
+            </section>
+          )}
+
 
           {/* Conteúdo Modular do Review (se preenchido no CMS) */}
           {Array.isArray(review.modules) && review.modules.length > 0 ? (

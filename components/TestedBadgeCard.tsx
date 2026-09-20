@@ -29,8 +29,8 @@ export default function TestedBadgeCard({ review }: TestedBadgeCardProps) {
               <ShieldCheck className="w-4 h-4" /> TESTADO DE VERDADE
             </div>
             <div className="absolute bottom-3 left-3 right-3 bg-cascalho-ink/90 backdrop-blur-md p-3 rounded-xl border border-white/10 text-[11px]">
-              <p className="font-bold text-cascalho-sun">{review.methodology.productAndVariant}</p>
-              <p className="text-cascalho-paper/80">{review.methodology.periodOfUse} • {review.methodology.distanceOrHours}</p>
+              <p className="font-bold text-cascalho-sun">{review.methodology.productAndVariant || review.productName || review.title}</p>
+              <p className="text-cascalho-paper/80">{review.methodology.periodOfUse || 'Em testes'} {review.methodology.distanceOrHours ? `• ${review.methodology.distanceOrHours}` : ''}</p>
             </div>
           </div>
         </div>
@@ -57,14 +57,14 @@ export default function TestedBadgeCard({ review }: TestedBadgeCardProps) {
               <MapPin className="w-4 h-4 text-cascalho-teal shrink-0 mt-0.5" />
               <div>
                 <strong className="text-cascalho-sun block">Terreno e Clima:</strong>
-                <span className="text-cascalho-paper/80">{review.methodology.terrainAndWeather}</span>
+                <span className="text-cascalho-paper/80">{review.methodology.terrainAndWeather || review.methodology.terrain || 'Condições variadas'}</span>
               </div>
             </div>
             <div className="flex items-start gap-2">
               <AlertTriangle className="w-4 h-4 text-cascalho-orange shrink-0 mt-0.5" />
               <div>
                 <strong className="text-cascalho-sun block">Principal Limitação:</strong>
-                <span className="text-cascalho-paper/80">{review.methodology.limitations[0]}</span>
+                <span className="text-cascalho-paper/80">{(review.cons && review.cons[0]) || review.methodology.limitations?.[0] || 'Nenhuma limitação crítica'}</span>
               </div>
             </div>
           </div>

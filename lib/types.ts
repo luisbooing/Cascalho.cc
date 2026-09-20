@@ -22,17 +22,20 @@ export interface AffiliateProduct {
 }
 
 export interface ReviewMethodology {
-  productAndVariant: string;
-  periodOfUse: string;
-  distanceOrHours: string;
-  terrainAndWeather: string;
-  configuration: string;
-  criteria: string[];
-  strongPoints: string[];
-  limitations: string[];
-  indicatedFor: string;
-  alternatives: string[];
-  priceAndDate: string;
+  productAndVariant?: string;
+  periodOfUse?: string;
+  distanceOrHours?: string;
+  terrainAndWeather?: string;
+  terrain?: string;
+  configuration?: string;
+  criteria?: string[];
+  strongPoints?: string[];
+  limitations?: string[];
+  indicatedFor?: string;
+  alternatives?: string[];
+  priceAndDate?: string;
+  testedBy?: string;
+  boughtOrProvided?: string;
 }
 
 export interface ReviewItem {
@@ -41,11 +44,15 @@ export interface ReviewItem {
   title: string;
   excerpt: string;
   category: CategoryType;
+  productName?: string;
+  rating?: number;
   coverImage: string;
   publishedAt: string;
-  updatedAt: string;
+  updatedAt?: string;
   author: string;
   methodology: ReviewMethodology;
+  pros?: string[];
+  cons?: string[];
   verdict: string;
   affiliateProducts: AffiliateProduct[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,6 +62,8 @@ export interface ReviewItem {
   fullContentHtml?: string;
   youtubeId?: string;
 }
+
+
 
 export interface VideoItem {
   id: string;
