@@ -21,6 +21,7 @@ export interface AffiliateProduct {
   category?: CategoryType;
   testedContext?: string;
   honestContext?: string;
+  limitation?: string;
   image: string;
   isEditorPick?: boolean;
 }

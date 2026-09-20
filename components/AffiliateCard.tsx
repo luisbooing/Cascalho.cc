@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { ExternalLink, ShieldCheck, Clock, Star, Info } from 'lucide-react';
+import { ExternalLink, ShieldCheck, Clock, Star, Info, AlertTriangle } from 'lucide-react';
 import { AffiliateProduct } from '@/lib/types';
 
 interface AffiliateCardProps {
@@ -63,6 +63,16 @@ export default function AffiliateCard({ product }: AffiliateCardProps) {
           {testedContext && (
             <div className="bg-cascalho-surface p-2.5 rounded-xl border border-cascalho-sun/40 text-[11px] text-cascalho-ink/90 italic">
               <strong>Contexto do teste:</strong> "{testedContext}"
+            </div>
+          )}
+
+          {/* Limitation Note */}
+          {product.limitation && (
+            <div className="bg-cascalho-coral/10 p-2.5 rounded-xl border border-cascalho-coral/40 text-[11px] text-cascalho-ink/90 flex items-start gap-1.5">
+              <AlertTriangle className="w-3.5 h-3.5 text-cascalho-coral shrink-0 mt-0.5" />
+              <span>
+                <strong className="text-cascalho-coral">Limitação importante:</strong> {product.limitation}
+              </span>
             </div>
           )}
 
