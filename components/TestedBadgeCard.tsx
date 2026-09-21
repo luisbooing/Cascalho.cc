@@ -3,12 +3,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ShieldCheck, Calendar, MapPin, AlertTriangle, ArrowRight } from 'lucide-react';
 import { ReviewItem } from '@/lib/types';
+import { formatDate } from '@/lib/formatters';
 
 interface TestedBadgeCardProps {
   review: ReviewItem;
 }
 
 export default function TestedBadgeCard({ review }: TestedBadgeCardProps) {
+  const dateStr = review.updatedAt || review.publishedAt || review.methodology?.priceAndDate;
+  const displayDate = formatDate(dateStr);
+
   return (
     <div className="bg-cascalho-ink text-cascalho-paper rounded-3xl p-6 sm:p-8 relative overflow-hidden border-2 border-cascalho-coral/30 shadow-xl">
       {/* Decorative Blob */}
@@ -70,10 +74,12 @@ export default function TestedBadgeCard({ review }: TestedBadgeCardProps) {
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-4 pt-2">
-            <div className="flex items-center gap-2 text-xs text-cascalho-muted">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Verificado em {review.updatedAt}</span>
-            </div>
+            {displayDate ? (
+              <div className="flex items-center gap-2 text-xs text-cascalho-muted">
+                <Calendar className="w-3.5 h-3.5 text-cascalho-teal" />
+                <span>Verificado em {displayDate}</span>
+              </div>
+            ) : <div />}
 
             <Link
               href={`/reviews/${review.slug}`}
