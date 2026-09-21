@@ -39,6 +39,7 @@ export default function Footer() {
                   src="/logo.png"
                   alt="Cascalho.CC Logo"
                   fill
+                  sizes="40px"
                   className="object-cover"
                 />
               </div>

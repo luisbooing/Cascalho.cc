@@ -149,6 +149,7 @@ export default async function SearchPage({ searchParams }: Props) {
                         src={rev.coverImage}
                         alt={rev.title}
                         fill
+                        sizes="(max-width: 640px) 100vw, 144px"
                         className="object-cover group-hover:scale-105 transition-transform"
                       />
                     </div>
@@ -227,6 +228,7 @@ export default async function SearchPage({ searchParams }: Props) {
                           src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
                           alt={vid.title}
                           fill
+                          sizes="(max-width: 640px) 100vw, 160px"
                           className="object-cover group-hover:scale-105 transition-transform"
                         />
                       </div>

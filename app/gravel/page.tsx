@@ -60,7 +60,7 @@ export default async function GravelHubPage() {
             >
               <div>
                 <div className="relative h-48 w-full">
-                  <Image src={art.coverImage} alt={art.title} fill className="object-cover" />
+                  <Image src={art.coverImage} alt={art.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover" />
                 </div>
                 <div className="p-5 space-y-2">
                   <h3 className="text-base font-extrabold text-cascalho-ink hover:text-cascalho-teal transition">

@@ -16,6 +16,32 @@ export async function generateStaticParams() {
   return videos.map((v) => ({ slug: v.slug }));
 }
 
+export async function generateMetadata({ params }: Props) {
+  const video = await getVideoBySlug(params.slug);
+  if (!video) return { title: 'Vídeo não encontrado — Cascalho.CC' };
+  const canonicalUrl = `https://cascalho.cc/videos/${params.slug}`;
+  const rawYt = video.youtubeId || video.youtubeUrl || '';
+  const match = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
+  const ytId = match ? match[1] : rawYt;
+  const ogImage = ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : undefined;
+
+  return {
+    title: `${video.title} — Cascalho.CC`,
+    description: video.summary || `Assista e confira o resumo editorial, minutagem por capítulos e equipamentos do vídeo ${video.title} no Cascalho.CC`,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${video.title} — Cascalho.CC`,
+      description: video.summary,
+      url: canonicalUrl,
+      type: 'article',
+      publishedTime: video.publishedAt,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 675, alt: video.title }] : [],
+    },
+  };
+}
+
 export default async function VideoDetailPage({ params }: Props) {
   const video = await getVideoBySlug(params.slug);
 

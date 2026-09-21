@@ -49,7 +49,7 @@ export default async function ReviewsPage() {
             >
               <div>
                 <div className="relative h-64 w-full bg-cascalho-ink/10">
-                  <Image src={rev.coverImage} alt={rev.title} fill className="object-cover" />
+                  <Image src={rev.coverImage} alt={rev.title} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                   <div className="absolute top-3 left-3 bg-cascalho-coral text-white font-bold text-[11px] uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow">
                     <Star className="w-3.5 h-3.5 fill-white" /> Review Metodológico
                   </div>

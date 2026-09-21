@@ -108,6 +108,7 @@ export default async function ReviewDetailPage({ params }: Props) {
                 src={review.coverImage}
                 alt={review.title}
                 fill
+                sizes="(max-width: 1024px) 100vw, 900px"
                 className="object-cover"
                 priority
               />
@@ -293,6 +294,7 @@ export default async function ReviewDetailPage({ params }: Props) {
                         width={1200}
                         height={675}
                         className="w-full h-auto max-h-[500px] object-cover"
+                        sizes="(max-width: 768px) 100vw, 800px"
                       />
                       {module.caption && (
                         <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">
@@ -398,6 +400,7 @@ export default async function ReviewDetailPage({ params }: Props) {
                               width={1200}
                               height={675}
                               className="w-full h-auto max-h-[500px] object-cover"
+                              sizes="(max-width: 768px) 100vw, 800px"
                             />
                             {value.caption && (
                               <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">

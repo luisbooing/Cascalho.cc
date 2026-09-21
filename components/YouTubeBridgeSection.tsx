@@ -56,6 +56,7 @@ export default function YouTubeBridgeSection({ video }: YouTubeBridgeSectionProp
                     src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
                     alt={featuredVideo.title}
                     fill
+                    sizes="(max-width: 1024px) 100vw, 60vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (

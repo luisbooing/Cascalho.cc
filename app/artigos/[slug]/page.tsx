@@ -353,6 +353,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                         width={1200}
                         height={675}
                         className="w-full h-auto max-h-[500px] object-cover"
+                        sizes="(max-width: 768px) 100vw, 800px"
                       />
                       {module.caption && (
                         <figcaption className="p-3 text-center text-xs text-cascalho-muted bg-cascalho-surface border-t border-cascalho-ink/10">

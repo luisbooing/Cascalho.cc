@@ -60,6 +60,7 @@ export default async function HomePage() {
                       src={art.coverImage}
                       alt={art.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-3 left-3 bg-cascalho-ink/90 text-cascalho-sun font-bold text-[10px] uppercase px-2.5 py-1 rounded">
@@ -122,6 +123,7 @@ export default async function HomePage() {
                   src="/sobre/george.jpg"
                   alt="George Volpão — Cascalho.CC"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-cascalho-ink/80 via-transparent to-transparent" />

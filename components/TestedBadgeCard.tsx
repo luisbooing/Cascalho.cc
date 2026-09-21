@@ -27,6 +27,7 @@ export default function TestedBadgeCard({ review }: TestedBadgeCardProps) {
               src={review.coverImage}
               alt={review.title}
               fill
+              sizes="(max-width: 1024px) 100vw, 40vw"
               className="object-cover"
             />
             <div className="absolute top-3 left-3 bg-cascalho-coral text-white font-bold text-xs px-3 py-1.5 rounded-full flex items-center gap-1 shadow">

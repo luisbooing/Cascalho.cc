@@ -46,6 +46,7 @@ export default function Header() {
                 src="/logo.png"
                 alt="Cascalho.CC Logo"
                 fill
+                sizes="48px"
                 className="object-cover"
               />
             </div>

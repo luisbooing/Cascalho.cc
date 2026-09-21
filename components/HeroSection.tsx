@@ -93,6 +93,7 @@ export default function HeroSection() {
                     src="/sobre/george.jpg"
                     alt="George Volpão — Cascalho.CC"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 400px"
                     className="object-cover object-top"
                     priority
                   />

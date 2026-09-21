@@ -47,7 +47,7 @@ export default function SobrePage() {
             {TEAM_MEMBERS.map((member, i) => (
               <div key={i} className="bg-white p-6 rounded-3xl border border-cascalho-ink/15 shadow-sm space-y-4">
                 <div className="relative h-64 w-full rounded-2xl overflow-hidden border border-cascalho-ink/10">
-                  <Image src={member.avatar} alt={member.name} fill className="object-cover object-top" />
+                  <Image src={member.avatar} alt={member.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" />
                 </div>
                 <div>
                   <span className="text-[10px] font-extrabold uppercase bg-cascalho-sun/40 text-cascalho-ink px-2.5 py-1 rounded">
