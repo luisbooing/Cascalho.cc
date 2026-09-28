@@ -7,6 +7,7 @@ import { calloutBoxSchema } from './calloutBox';
 import { textBlockSchema } from './textBlock';
 import { imageBlockSchema } from './imageBlock';
 import { problemGuideSchema } from './problemGuide';
+import { teamMemberSchema } from './teamMember';
 
 export const schemaTypes = [
   postSchema,
@@ -18,5 +19,6 @@ export const schemaTypes = [
   textBlockSchema,
   imageBlockSchema,
   problemGuideSchema,
+  teamMemberSchema,
 ];
 

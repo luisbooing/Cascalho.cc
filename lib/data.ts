@@ -9,13 +9,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
     bio: "Nasceu em Curitiba, atua nas montanhas brasileiras desde 1995 e mantém seu blog pessoal desde 2006. Pedala de gravel, corre ultramaratonas em trilha e produz conteúdo sem filtro para quem quer viver o esporte ao ar livre com bom senso e orçamento consciente.",
     yearsActive: "Desde 1995 nas montanhas",
     avatar: "/sobre/george.jpg"
-  },
-  {
-    name: "Patricia Fontana",
-    role: "Coautora, Produção & Operação",
-    bio: "Parceira de expedições, gravação e coautoria. Patricia garante o olhar de campo, a curadoria de rotas e a estrutura de operação para que o Cascalho.CC continue sendo uma plataforma independente e confiável.",
-    yearsActive: "Coautora & Produção de campo",
-    avatar: "/sobre/patricia.jpg"
   }
 ];
 

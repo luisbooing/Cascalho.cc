@@ -2,35 +2,38 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Mountain, Compass, ShieldCheck, Heart } from 'lucide-react';
-import { TEAM_MEMBERS, SITE_MANIFESTO } from '@/lib/data';
+import { SITE_MANIFESTO } from '@/lib/data';
+import { getTeamMembers } from '@/lib/queries';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Quem Somos — George Volpão, Patricia Fontana & Cascalho.CC",
-  description: "Conheça a trajetória de George Volpão nas montanhas brasileiras desde 1995, a coautoria de Patricia Fontana e a proposta editorial do Cascalho.CC.",
-  keywords: ["George Volpão", "Patricia Fontana", "Quem Somos Cascalho CC", "Trajetória Montanhismo", "Curitiba Ciclismo"],
+  title: "Quem Somos — George Volpão & Cascalho.CC",
+  description: "Conheça a trajetória de George Volpão nas montanhas brasileiras desde 1995 e a proposta editorial do Cascalho.CC.",
+  keywords: ["George Volpão", "Quem Somos Cascalho CC", "Trajetória Montanhismo", "Curitiba Ciclismo"],
   alternates: {
     canonical: "https://cascalho.cc/sobre",
   },
   openGraph: {
     title: "Quem Somos — Cascalho.CC",
-    description: "Plataforma autoral de ciclismo gravel, corrida em trilha e pensamento crítico sobre vida ao ar livre por George Volpão e Patricia Fontana.",
+    description: "Plataforma autoral de ciclismo gravel, corrida em trilha e pensamento crítico sobre vida ao ar livre por George Volpão.",
     url: "https://cascalho.cc/sobre",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "profile",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "George Volpão e Patricia Fontana — Cascalho.CC" }],
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "George Volpão — Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Quem Somos — Cascalho.CC",
-    description: "Trajetória e manifesto de origem de George Volpão e Patricia Fontana.",
+    description: "Trajetória e manifesto de origem de George Volpão.",
     images: ["https://cascalho.cc/logo.png"],
   },
 };
 
-export default function SobrePage() {
+export default async function SobrePage() {
+  const teamMembers = await getTeamMembers();
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -55,23 +58,18 @@ export default function SobrePage() {
         "@type": "AboutPage",
         "@id": "https://cascalho.cc/sobre/#webpage",
         "url": "https://cascalho.cc/sobre",
-        "name": "Quem Somos — George Volpão, Patricia Fontana & Cascalho.CC",
-        "description": "História e trajetória de George Volpão e Patricia Fontana no Cascalho.CC.",
+        "name": "Quem Somos — George Volpão & Cascalho.CC",
+        "description": "História e trajetória de George Volpão no Cascalho.CC.",
         "isPartOf": {
           "@id": "https://cascalho.cc/#website"
         }
       },
-      {
+      ...teamMembers.map((member) => ({
         "@type": "Person",
-        "name": "George Volpão",
-        "jobTitle": "Fundador e Criador de Conteúdo",
-        "sameAs": ["https://www.youtube.com/@cascalhocc", "https://www.instagram.com/cascalhocc/"]
-      },
-      {
-        "@type": "Person",
-        "name": "Patricia Fontana",
-        "jobTitle": "Coautora e Produção Editorial"
-      }
+        "name": member.name,
+        "jobTitle": member.role,
+        "sameAs": member.name.includes("George") ? ["https://www.youtube.com/@cascalhocc", "https://www.instagram.com/cascalhocc/"] : undefined
+      }))
     ]
   };
 
@@ -106,28 +104,40 @@ export default function SobrePage() {
           </p>
         </div>
 
-        {/* Perfis da Equipe (Seção 2 do Briefing Estratégico) */}
+        {/* Perfis da Equipe (dinâmico via Sanity CMS) */}
         <div className="space-y-8 pt-4">
           <h2 className="text-2xl font-black text-cascalho-ink border-b border-cascalho-ink/15 pb-3">
-            Equipe & Coautoria
+            {teamMembers.length > 1 ? 'Equipe & Coautoria' : 'Criador & Autor'}
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {TEAM_MEMBERS.map((member, i) => (
-              <div key={i} className="bg-white p-6 rounded-3xl border border-cascalho-ink/15 shadow-sm space-y-4">
-                <div className="relative h-64 w-full rounded-2xl overflow-hidden border border-cascalho-ink/10">
-                  <Image src={member.avatar} alt={member.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" />
-                </div>
+          <div className={`grid grid-cols-1 ${teamMembers.length > 1 ? 'md:grid-cols-2' : 'max-w-2xl mx-auto'} gap-8`}>
+            {teamMembers.map((member, i) => (
+              <div key={i} className="bg-white p-6 sm:p-8 rounded-3xl border border-cascalho-ink/15 shadow-sm space-y-4">
+                {member.avatar && (
+                  <div className="relative h-72 w-full rounded-2xl overflow-hidden border border-cascalho-ink/10 bg-cascalho-surface">
+                    <Image
+                      src={member.avatar}
+                      alt={member.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                )}
                 <div>
-                  <span className="text-[10px] font-extrabold uppercase bg-cascalho-sun/40 text-cascalho-ink px-2.5 py-1 rounded">
-                    {member.yearsActive}
-                  </span>
+                  {member.yearsActive && (
+                    <span className="text-[10px] font-extrabold uppercase bg-cascalho-sun/40 text-cascalho-ink px-2.5 py-1 rounded">
+                      {member.yearsActive}
+                    </span>
+                  )}
                   <h3 className="text-xl font-bold text-cascalho-ink mt-2">{member.name}</h3>
-                  <p className="text-xs font-semibold text-cascalho-coral">{member.role}</p>
+                  {member.role && <p className="text-xs font-semibold text-cascalho-coral">{member.role}</p>}
                 </div>
-                <p className="text-xs text-cascalho-muted leading-relaxed">
-                  {member.bio}
-                </p>
+                {member.bio && (
+                  <p className="text-xs sm:text-sm text-cascalho-muted leading-relaxed font-sans">
+                    {member.bio}
+                  </p>
+                )}
               </div>
             ))}
           </div>
@@ -138,3 +148,4 @@ export default function SobrePage() {
     </div>
   );
 }
+

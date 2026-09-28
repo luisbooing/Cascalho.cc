@@ -1,6 +1,6 @@
 import { client } from '@/sanity/client';
-import { ARTICLES, REVIEWS, VIDEOS, AFFILIATE_PRODUCTS, PROBLEM_GUIDES } from '@/lib/data';
-import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct, ProblemGuideItem } from '@/lib/types';
+import { ARTICLES, REVIEWS, VIDEOS, AFFILIATE_PRODUCTS, PROBLEM_GUIDES, TEAM_MEMBERS } from '@/lib/data';
+import { ArticleItem, ReviewItem, VideoItem, AffiliateProduct, ProblemGuideItem, TeamMember } from '@/lib/types';
 
 
 /**
@@ -331,4 +331,28 @@ export async function getProblemGuides(): Promise<ProblemGuideItem[]> {
   }
   return PROBLEM_GUIDES;
 }
+
+/**
+ * Busca membros da equipe do Sanity CMS com fallback automático para lib/data.ts
+ */
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  if (!client) return TEAM_MEMBERS;
+  try {
+    const groq = `*[_type == "teamMember" && !(_id in path("drafts.**"))] | order(order asc) {
+      name,
+      role,
+      bio,
+      yearsActive,
+      "avatar": avatar.asset->url
+    }`;
+    const data = await client.fetch<TeamMember[]>(groq, {}, { next: { revalidate: 10 } });
+    if (data && data.length > 0) {
+      return data;
+    }
+  } catch (error) {
+    // Fallback
+  }
+  return TEAM_MEMBERS;
+}
+
 
