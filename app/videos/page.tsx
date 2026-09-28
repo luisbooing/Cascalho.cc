@@ -4,16 +4,74 @@ import Image from 'next/image';
 import { Youtube, PlayCircle, Clock, ArrowRight } from 'lucide-react';
 import { getVideos } from '@/lib/queries';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: "Arquivo de Vídeos do YouTube — Páginas Permanentes",
-  description: "Páginas completas dos vídeos do Cascalho.CC no YouTube com capítulos, transcrições editadas e links dos produtos citados.",
+  description: "Páginas completas dos vídeos do Cascalho.CC no YouTube com capítulos, transcrições editadas e links dos produtos citados por George Volpão.",
+  keywords: ["Vídeos Gravel", "Canal Cascalho CC", "George Volpão YouTube", "Reviews em Vídeo", "Ciclismo YouTube"],
+  alternates: {
+    canonical: "https://cascalho.cc/videos",
+  },
+  openGraph: {
+    title: "Arquivo de Vídeos — Cascalho.CC",
+    description: "Cada vídeo do canal com player, minutagem por capítulos, transcrição editada e os produtos citados.",
+    url: "https://cascalho.cc/videos",
+    siteName: "Cascalho.CC",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Vídeos Cascalho.CC" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vídeos do YouTube — Cascalho.CC",
+    description: "Acervo permanente de vídeos com minutagem, capítulos e transcrições.",
+    images: ["https://cascalho.cc/logo.png"],
+  },
 };
 
 export default async function VideosPage() {
   const videos = await getVideos();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://cascalho.cc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Vídeos",
+            "item": "https://cascalho.cc/videos"
+          }
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://cascalho.cc/videos/#webpage",
+        "url": "https://cascalho.cc/videos",
+        "name": "Arquivo de Vídeos do YouTube — Páginas Permanentes",
+        "description": "Acervo de conteúdos do canal Cascalho.CC.",
+        "isPartOf": {
+          "@id": "https://cascalho.cc/#website"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="py-12 bg-cascalho-paper space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       {/* Header do Arquivo de Vídeos */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

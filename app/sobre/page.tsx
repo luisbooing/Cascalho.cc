@@ -4,14 +4,83 @@ import Link from 'next/link';
 import { Mountain, Compass, ShieldCheck, Heart } from 'lucide-react';
 import { TEAM_MEMBERS, SITE_MANIFESTO } from '@/lib/data';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: "Quem Somos — George Volpão, Patricia Fontana & Cascalho.CC",
   description: "Conheça a trajetória de George Volpão nas montanhas brasileiras desde 1995, a coautoria de Patricia Fontana e a proposta editorial do Cascalho.CC.",
+  keywords: ["George Volpão", "Patricia Fontana", "Quem Somos Cascalho CC", "Trajetória Montanhismo", "Curitiba Ciclismo"],
+  alternates: {
+    canonical: "https://cascalho.cc/sobre",
+  },
+  openGraph: {
+    title: "Quem Somos — Cascalho.CC",
+    description: "Plataforma autoral de ciclismo gravel, corrida em trilha e pensamento crítico sobre vida ao ar livre por George Volpão e Patricia Fontana.",
+    url: "https://cascalho.cc/sobre",
+    siteName: "Cascalho.CC",
+    locale: "pt_BR",
+    type: "profile",
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "George Volpão e Patricia Fontana — Cascalho.CC" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Quem Somos — Cascalho.CC",
+    description: "Trajetória e manifesto de origem de George Volpão e Patricia Fontana.",
+    images: ["https://cascalho.cc/logo.png"],
+  },
 };
 
 export default function SobrePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://cascalho.cc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sobre",
+            "item": "https://cascalho.cc/sobre"
+          }
+        ]
+      },
+      {
+        "@type": "AboutPage",
+        "@id": "https://cascalho.cc/sobre/#webpage",
+        "url": "https://cascalho.cc/sobre",
+        "name": "Quem Somos — George Volpão, Patricia Fontana & Cascalho.CC",
+        "description": "História e trajetória de George Volpão e Patricia Fontana no Cascalho.CC.",
+        "isPartOf": {
+          "@id": "https://cascalho.cc/#website"
+        }
+      },
+      {
+        "@type": "Person",
+        "name": "George Volpão",
+        "jobTitle": "Fundador e Criador de Conteúdo",
+        "sameAs": ["https://www.youtube.com/@cascalhocc", "https://www.instagram.com/cascalhocc/"]
+      },
+      {
+        "@type": "Person",
+        "name": "Patricia Fontana",
+        "jobTitle": "Coautora e Produção Editorial"
+      }
+    ]
+  };
+
   return (
     <div className="py-12 bg-cascalho-paper space-y-12 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         

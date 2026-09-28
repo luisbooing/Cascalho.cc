@@ -5,9 +5,30 @@ import { Bike, Compass, ShieldCheck, ArrowRight, Star } from 'lucide-react';
 import { getPosts, getReviews, getAffiliateProducts } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: "Gravel — Bicicletas, Pneus, Rotas e Dicas Práticas",
-  description: "Tudo sobre pedal gravel no Brasil: bikes de entrada, comparativos de pneus para cascalho e lama, pressão correta e relatos de rota.",
+  description: "Tudo sobre pedal gravel no Brasil: bikes de entrada, comparativos de pneus para cascalho e lama, pressão correta e relatos de rota testados por George Volpão.",
+  keywords: ["Gravel", "Bicicleta Gravel", "Pneus Gravel", "Gravel de Entrada", "Pedal de Terra", "Curitiba Gravel", "Bike Packing"],
+  alternates: {
+    canonical: "https://cascalho.cc/gravel",
+  },
+  openGraph: {
+    title: "Hub Gravel — Cascalho.CC",
+    description: "Guias de bicicletas de entrada, testes de pneus sob lama e cascalho afiado, adaptação de componentes e rotas rurais reais.",
+    url: "https://cascalho.cc/gravel",
+    siteName: "Cascalho.CC",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Gravel Cascalho.CC" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gravel — Bicicletas, Pneus e Dicas Práticas",
+    description: "Pedalar na terra sem gourmetização: guias de bikes, testes de pneus e rotas rurais reais.",
+    images: ["https://cascalho.cc/logo.png"],
+  },
 };
 
 export default async function GravelHubPage() {
@@ -19,8 +40,45 @@ export default async function GravelHubPage() {
   const gravelReviews = reviews.filter((rev) => rev.category === 'gravel');
   const gravelProducts = products.filter((prod) => prod.category === 'gravel');
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://cascalho.cc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Gravel",
+            "item": "https://cascalho.cc/gravel"
+          }
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://cascalho.cc/gravel/#webpage",
+        "url": "https://cascalho.cc/gravel",
+        "name": "Gravel — Bicicletas, Pneus, Rotas e Dicas Práticas",
+        "description": "Hub temático sobre ciclismo gravel no Brasil.",
+        "isPartOf": {
+          "@id": "https://cascalho.cc/#website"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="py-12 bg-cascalho-paper space-y-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       {/* Hero do Hub Gravel */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

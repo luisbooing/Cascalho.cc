@@ -2,14 +2,72 @@ import React from 'react';
 import Link from 'next/link';
 import { Heart, CheckCircle2, ShieldCheck, Youtube, Mail, Sparkles } from 'lucide-react';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: "Apoie o Projeto — Membresia & Sustentabilidade do Cascalho.CC",
-  description: "Entenda para onde vai sua contribuição e como apoiar a produção de testes independentes no Cascalho.CC.",
+  description: "Entenda para onde vai sua contribuição e como apoiar a produção de testes independentes no Cascalho.CC por George Volpão.",
+  keywords: ["Apoie Cascalho CC", "Membresia YouTube", "Pix Apoio", "Produção Independente", "Ciclismo Gravel"],
+  alternates: {
+    canonical: "https://cascalho.cc/apoie",
+  },
+  openGraph: {
+    title: "Apoie o Cascalho.CC — Membresia & Comunidade",
+    description: "Produzir testes de longa duração, relatos de montanha e críticas honestas sem nos curvar a marcas ou jabás. Seu apoio garante essa independência.",
+    url: "https://cascalho.cc/apoie",
+    siteName: "Cascalho.CC",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Apoie o Cascalho.CC" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Apoie o Projeto — Cascalho.CC",
+    description: "Garanta a produção de testes de campo independentes no ciclismo gravel e trail running.",
+    images: ["https://cascalho.cc/logo.png"],
+  },
 };
 
 export default function ApoiePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://cascalho.cc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apoie",
+            "item": "https://cascalho.cc/apoie"
+          }
+        ]
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://cascalho.cc/apoie/#webpage",
+        "url": "https://cascalho.cc/apoie",
+        "name": "Apoie o Projeto — Membresia & Sustentabilidade do Cascalho.CC",
+        "description": "Canais de apoio e membresia do projeto.",
+        "isPartOf": {
+          "@id": "https://cascalho.cc/#website"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="py-12 bg-cascalho-paper space-y-12 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         

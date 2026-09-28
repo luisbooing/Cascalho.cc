@@ -3,16 +3,74 @@ import { ShieldCheck, Compass, Info } from 'lucide-react';
 import { getAffiliateProducts } from '@/lib/queries';
 import AffiliateCard from '@/components/AffiliateCard';
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
   title: "Escolhas do Cascalho — Equipamentos Testados que Fazem Sentido",
-  description: "Curadoria de equipamentos de ciclismo gravel, corrida em trilha e vida outdoor testados de verdade com links comissionados transparentes.",
+  description: "Curadoria de equipamentos de ciclismo gravel, corrida em trilha e vida outdoor testados de verdade com links comissionados transparentes por George Volpão.",
+  keywords: ["Equipamentos Gravel", "Recomendações Outdoor", "Mochila Vest", "Pneus Gravel", "Produtos Testados"],
+  alternates: {
+    canonical: "https://cascalho.cc/escolhas",
+  },
+  openGraph: {
+    title: "Escolhas do Cascalho — Cascalho.CC",
+    description: "Recomendamos poucos equipamentos com contexto, método, limitações declaradas e transparência sobre comissão.",
+    url: "https://cascalho.cc/escolhas",
+    siteName: "Cascalho.CC",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Escolhas Cascalho.CC" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Escolhas do Cascalho — Cascalho.CC",
+    description: "Curadoria consciente de equipamentos de campo testados.",
+    images: ["https://cascalho.cc/logo.png"],
+  },
 };
 
 export default async function EscolhasPage() {
   const products = await getAffiliateProducts();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://cascalho.cc"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Escolhas",
+            "item": "https://cascalho.cc/escolhas"
+          }
+        ]
+      },
+      {
+        "@type": "CollectionPage",
+        "@id": "https://cascalho.cc/escolhas/#webpage",
+        "url": "https://cascalho.cc/escolhas",
+        "name": "Escolhas do Cascalho — Equipamentos Testados que Fazem Sentido",
+        "description": "Curadoria de equipamentos recomendados.",
+        "isPartOf": {
+          "@id": "https://cascalho.cc/#website"
+        }
+      }
+    ]
+  };
+
   return (
     <div className="py-12 bg-cascalho-paper space-y-12 min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-cascalho-ink text-cascalho-paper rounded-3xl p-8 sm:p-12 border-2 border-cascalho-sun/40 shadow-xl space-y-4">
