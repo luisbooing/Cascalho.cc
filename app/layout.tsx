@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Lora } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
 
@@ -49,6 +50,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
   alternates: {
     canonical: "https://cascalho.cc",
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   openGraph: {
     title: "Cascalho.CC — Pedalar, correr e pensar",
@@ -145,6 +149,9 @@ export default function RootLayout({
       <body className={`${plusJakartaSans.variable} ${lora.variable} min-h-screen flex flex-col font-sans bg-cascalho-paper text-cascalho-ink selection:bg-cascalho-coral selection:text-white`}>
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
