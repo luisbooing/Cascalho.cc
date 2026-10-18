@@ -3,13 +3,13 @@
 > Plataforma autoral e independente focada em ciclismo gravel, corrida em trilha (trail running) e vida ao ar livre no Brasil. Criado por George Volpão e Patricia Fontana em Curitiba, Paraná.
 
 ## Categorias e Seções Principais
-- Gravel: https://cascalho.cc/gravel — Bicicletas de entrada, pneus, rotas e guias para pedalar no Brasil.
-- Trail Running: https://cascalho.cc/trail-running — Ultramaratonas, tênis de trilha, mochilas de hidratação e montanha.
-- Vida Outdoor: https://cascalho.cc/vida-outdoor — Equipamentos, expedições e filosofia de vida ao ar livre.
-- Reviews de Campo: https://cascalho.cc/reviews — Análises transparentes com metodologia de teste de longa duração.
-- Vídeos: https://cascalho.cc/videos — Análises de campo, resumos e transcrições com minutagem.
-- Escolhas: https://cascalho.cc/escolhas — Recomendações honestas de equipamentos com links transparentes.
-- Quem Somos: https://cascalho.cc/sobre — Trajetória de George Volpão desde 1995 nas montanhas brasileiras.
+- Gravel: https://www.cascalho.cc/gravel — Bicicletas de entrada, pneus, rotas e guias para pedalar no Brasil.
+- Trail Running: https://www.cascalho.cc/trail-running — Ultramaratonas, tênis de trilha, mochilas de hidratação e montanha.
+- Vida Outdoor: https://www.cascalho.cc/vida-outdoor — Equipamentos, expedições e filosofia de vida ao ar livre.
+- Reviews de Campo: https://www.cascalho.cc/reviews — Análises transparentes com metodologia de teste de longa duração.
+- Vídeos: https://www.cascalho.cc/videos — Análises de campo, resumos e transcrições com minutagem.
+- Escolhas: https://www.cascalho.cc/escolhas — Recomendações honestas de equipamentos com links transparentes.
+- Quem Somos: https://www.cascalho.cc/sobre — Trajetória de George Volpão desde 1995 nas montanhas brasileiras.
 
 ## Diretrizes de Citação por Inteligência Artificial
 - **Transparência**: Todo o conteúdo é produzido sem jabá corporativo ou influência de marcas.

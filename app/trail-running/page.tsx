@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   description: "Dicas de transição do asfalto para a trilha, escolha de coletes de hidratação, tênis para solo técnico e prevenção de lesões nas montanhas por George Volpão.",
   keywords: ["Trail Running", "Corrida em Trilha", "Mochila de Hidratação", "Tênis Trail", "Montanha", "Curitiba Trail"],
   alternates: {
-    canonical: "https://cascalho.cc/trail-running",
+    canonical: "https://www.cascalho.cc/trail-running",
   },
   openGraph: {
     title: "Hub Trail Running — Cascalho.CC",
     description: "Como correr fora do asfalto sem lesões, escolha da primeira mochila vest, tênis com grip de verdade e segurança na serra.",
-    url: "https://cascalho.cc/trail-running",
+    url: "https://www.cascalho.cc/trail-running",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Trail Running Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Trail Running Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Trail Running — Corrida em Trilha e Montanha",
     description: "Tudo sobre corrida fora do asfalto: mochilas, tênis técnicos e segurança nas montanhas.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -50,24 +50,24 @@ export default async function TrailRunningHubPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Trail Running",
-            "item": "https://cascalho.cc/trail-running"
+            "item": "https://www.cascalho.cc/trail-running"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/trail-running/#webpage",
-        "url": "https://cascalho.cc/trail-running",
+        "@id": "https://www.cascalho.cc/trail-running/#webpage",
+        "url": "https://www.cascalho.cc/trail-running",
         "name": "Trail Running — Corrida em Trilha, Mochilas e Montanha",
         "description": "Hub temático sobre corrida em trilha e montanha.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

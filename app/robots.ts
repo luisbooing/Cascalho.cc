@@ -22,6 +22,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: 'https://cascalho.cc/sitemap.xml',
+    sitemap: 'https://www.cascalho.cc/sitemap.xml',
   };
 }

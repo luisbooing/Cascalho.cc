@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { getPosts, getReviews, getVideos } from '@/lib/queries';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://cascalho.cc';
+  const baseUrl = 'https://www.cascalho.cc';
 
   const posts = await getPosts();
   const reviews = await getReviews();

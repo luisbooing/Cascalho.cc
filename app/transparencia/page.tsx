@@ -9,22 +9,22 @@ export const metadata: Metadata = {
   description: "Conheça nossas regras de conformidade com o Código de Defesa do Consumidor (CDC), CONAR, ANPD e programa de afiliados Mercado Livre e Shopee no Cascalho.CC.",
   keywords: ["Política de Afiliados", "Transparência", "CONAR", "CDC", "LGPD", "Cascalho CC Termos"],
   alternates: {
-    canonical: "https://cascalho.cc/transparencia",
+    canonical: "https://www.cascalho.cc/transparencia",
   },
   openGraph: {
     title: "Política de Transparência — Cascalho.CC",
     description: "Entenda como funcionam nossos links de afiliados, como cobrimos os custos do site e quais são os compromissos éticos e legais do Cascalho.CC.",
-    url: "https://cascalho.cc/transparencia",
+    url: "https://www.cascalho.cc/transparencia",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Política de Transparência Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Política de Transparência Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Transparência & Isenção Editorial — Cascalho.CC",
     description: "Compromisso ético, política de afiliados e isenção editorial declarada.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -39,24 +39,24 @@ export default function TransparenciaPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Transparência",
-            "item": "https://cascalho.cc/transparencia"
+            "item": "https://www.cascalho.cc/transparencia"
           }
         ]
       },
       {
         "@type": "WebPage",
-        "@id": "https://cascalho.cc/transparencia/#webpage",
-        "url": "https://cascalho.cc/transparencia",
+        "@id": "https://www.cascalho.cc/transparencia/#webpage",
+        "url": "https://www.cascalho.cc/transparencia",
         "name": "Transparência, Política de Afiliados e Termos Legais",
         "description": "Declaração de independência e política de afiliados.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

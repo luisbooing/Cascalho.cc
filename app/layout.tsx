@@ -18,7 +18,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://cascalho.cc"),
+  metadataBase: new URL("https://www.cascalho.cc"),
   title: {
     default: "Cascalho.CC — Pedalar, correr e pensar",
     template: "%s | Cascalho.CC",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   alternates: {
-    canonical: "https://cascalho.cc",
+    canonical: "https://www.cascalho.cc",
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
@@ -57,13 +57,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Cascalho.CC — Pedalar, correr e pensar",
     description: "Equipamentos, rotas e histórias de vida ao ar livre — testados sem conversa de vendedor.",
-    url: "https://cascalho.cc",
+    url: "https://www.cascalho.cc",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
     images: [
       {
-        url: "https://cascalho.cc/logo.png",
+        url: "https://www.cascalho.cc/logo.png",
         width: 160,
         height: 160,
         alt: "Cascalho.CC Logo",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Cascalho.CC — Pedalar, correr e pensar",
     description: "Equipamentos, rotas e relatos testados de verdade por George Volpão e equipe.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
   robots: {
     index: true,
@@ -99,34 +99,34 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://cascalho.cc/#website",
-        "url": "https://cascalho.cc/",
+        "@id": "https://www.cascalho.cc/#website",
+        "url": "https://www.cascalho.cc/",
         "name": "Cascalho.CC",
         "description": "Pedalar, correr e pensar — Equipamentos, rotas e vida ao ar livre.",
         "inLanguage": "pt-BR",
         "publisher": {
-          "@id": "https://cascalho.cc/#organization"
+          "@id": "https://www.cascalho.cc/#organization"
         },
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://cascalho.cc/busca?q={search_term_string}",
+          "target": "https://www.cascalho.cc/busca?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       },
       {
         "@type": "Organization",
-        "@id": "https://cascalho.cc/#organization",
+        "@id": "https://www.cascalho.cc/#organization",
         "name": "Cascalho.CC",
-        "url": "https://cascalho.cc/",
+        "url": "https://www.cascalho.cc/",
         "logo": {
           "@type": "ImageObject",
-          "@id": "https://cascalho.cc/#logo",
-          "url": "https://cascalho.cc/logo.png",
-          "contentUrl": "https://cascalho.cc/logo.png",
+          "@id": "https://www.cascalho.cc/#logo",
+          "url": "https://www.cascalho.cc/logo.png",
+          "contentUrl": "https://www.cascalho.cc/logo.png",
           "caption": "Cascalho.CC Logo"
         },
         "image": {
-          "@id": "https://cascalho.cc/#logo"
+          "@id": "https://www.cascalho.cc/#logo"
         },
         "sameAs": [
           "https://www.youtube.com/@cascalhocc",

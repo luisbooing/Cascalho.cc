@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   description: "Tudo sobre pedal gravel no Brasil: bikes de entrada, comparativos de pneus para cascalho e lama, pressão correta e relatos de rota testados por George Volpão.",
   keywords: ["Gravel", "Bicicleta Gravel", "Pneus Gravel", "Gravel de Entrada", "Pedal de Terra", "Curitiba Gravel", "Bike Packing"],
   alternates: {
-    canonical: "https://cascalho.cc/gravel",
+    canonical: "https://www.cascalho.cc/gravel",
   },
   openGraph: {
     title: "Hub Gravel — Cascalho.CC",
     description: "Guias de bicicletas de entrada, testes de pneus sob lama e cascalho afiado, adaptação de componentes e rotas rurais reais.",
-    url: "https://cascalho.cc/gravel",
+    url: "https://www.cascalho.cc/gravel",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Gravel Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Gravel Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Gravel — Bicicletas, Pneus e Dicas Práticas",
     description: "Pedalar na terra sem gourmetização: guias de bikes, testes de pneus e rotas rurais reais.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -50,24 +50,24 @@ export default async function GravelHubPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Gravel",
-            "item": "https://cascalho.cc/gravel"
+            "item": "https://www.cascalho.cc/gravel"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/gravel/#webpage",
-        "url": "https://cascalho.cc/gravel",
+        "@id": "https://www.cascalho.cc/gravel/#webpage",
+        "url": "https://www.cascalho.cc/gravel",
         "name": "Gravel — Bicicletas, Pneus, Rotas e Dicas Práticas",
         "description": "Hub temático sobre ciclismo gravel no Brasil.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

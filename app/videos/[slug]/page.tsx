@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const video = await getVideoBySlug(params.slug);
   if (!video) return { title: 'Vídeo não encontrado — Cascalho.CC' };
-  const canonicalUrl = `https://cascalho.cc/videos/${params.slug}`;
+  const canonicalUrl = `https://www.cascalho.cc/videos/${params.slug}`;
   const rawYt = video.youtubeId || video.youtubeUrl || '';
   const match = rawYt.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([\w-]{11})/);
   const ytId = match ? match[1] : rawYt;

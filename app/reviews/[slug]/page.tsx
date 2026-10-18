@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const review = await getReviewBySlug(params.slug);
   if (!review) return { title: 'Review não encontrado — Cascalho.CC' };
-  const canonicalUrl = `https://cascalho.cc/reviews/${params.slug}`;
+  const canonicalUrl = `https://www.cascalho.cc/reviews/${params.slug}`;
   return {
     title: `${review.title} — Cascalho.CC`,
     description: review.excerpt,

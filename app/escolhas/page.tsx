@@ -10,22 +10,22 @@ export const metadata: Metadata = {
   description: "Curadoria de equipamentos de ciclismo gravel, corrida em trilha e vida outdoor testados de verdade com links comissionados transparentes por George Volpão.",
   keywords: ["Equipamentos Gravel", "Recomendações Outdoor", "Mochila Vest", "Pneus Gravel", "Produtos Testados"],
   alternates: {
-    canonical: "https://cascalho.cc/escolhas",
+    canonical: "https://www.cascalho.cc/escolhas",
   },
   openGraph: {
     title: "Escolhas do Cascalho — Cascalho.CC",
     description: "Recomendamos poucos equipamentos com contexto, método, limitações declaradas e transparência sobre comissão.",
-    url: "https://cascalho.cc/escolhas",
+    url: "https://www.cascalho.cc/escolhas",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Escolhas Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Escolhas Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Escolhas do Cascalho — Cascalho.CC",
     description: "Curadoria consciente de equipamentos de campo testados.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -42,24 +42,24 @@ export default async function EscolhasPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Escolhas",
-            "item": "https://cascalho.cc/escolhas"
+            "item": "https://www.cascalho.cc/escolhas"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/escolhas/#webpage",
-        "url": "https://cascalho.cc/escolhas",
+        "@id": "https://www.cascalho.cc/escolhas/#webpage",
+        "url": "https://www.cascalho.cc/escolhas",
         "name": "Escolhas do Cascalho — Equipamentos Testados que Fazem Sentido",
         "description": "Curadoria de equipamentos recomendados.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   description: "Relatos de expedições, equipamentos para vida ao ar livre, sustentabilidade e rotas na Serra do Mar e Brasil por George Volpão.",
   keywords: ["Vida Outdoor", "Camping", "Montanhismo", "Serra do Mar", "Expedições", "Equipamentos Outdoor"],
   alternates: {
-    canonical: "https://cascalho.cc/vida-outdoor",
+    canonical: "https://www.cascalho.cc/vida-outdoor",
   },
   openGraph: {
     title: "Hub Vida Outdoor — Cascalho.CC",
     description: "O lado humano da aventura: deslocamentos conscientes, equipamentos que duram décadas e reflexões sobre a vida fora dos centros urbanos.",
-    url: "https://cascalho.cc/vida-outdoor",
+    url: "https://www.cascalho.cc/vida-outdoor",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Vida Outdoor Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Hub Vida Outdoor Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vida Outdoor & Montanha — Cascalho.CC",
     description: "Relatos de expedição, sustentabilidade e equipamentos de campo testados de verdade.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -45,24 +45,24 @@ export default async function OutdoorHubPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Vida Outdoor",
-            "item": "https://cascalho.cc/vida-outdoor"
+            "item": "https://www.cascalho.cc/vida-outdoor"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/vida-outdoor/#webpage",
-        "url": "https://cascalho.cc/vida-outdoor",
+        "@id": "https://www.cascalho.cc/vida-outdoor/#webpage",
+        "url": "https://www.cascalho.cc/vida-outdoor",
         "name": "Vida Outdoor & Montanha — Experiências de Campo",
         "description": "Hub temático sobre montanhismo, expedições e vida ao ar livre.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

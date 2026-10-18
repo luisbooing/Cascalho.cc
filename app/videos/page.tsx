@@ -11,22 +11,22 @@ export const metadata: Metadata = {
   description: "Páginas completas dos vídeos do Cascalho.CC no YouTube com capítulos, transcrições editadas e links dos produtos citados por George Volpão.",
   keywords: ["Vídeos Gravel", "Canal Cascalho CC", "George Volpão YouTube", "Reviews em Vídeo", "Ciclismo YouTube"],
   alternates: {
-    canonical: "https://cascalho.cc/videos",
+    canonical: "https://www.cascalho.cc/videos",
   },
   openGraph: {
     title: "Arquivo de Vídeos — Cascalho.CC",
     description: "Cada vídeo do canal com player, minutagem por capítulos, transcrição editada e os produtos citados.",
-    url: "https://cascalho.cc/videos",
+    url: "https://www.cascalho.cc/videos",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Vídeos Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Vídeos Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Vídeos do YouTube — Cascalho.CC",
     description: "Acervo permanente de vídeos com minutagem, capítulos e transcrições.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -43,24 +43,24 @@ export default async function VideosPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Vídeos",
-            "item": "https://cascalho.cc/videos"
+            "item": "https://www.cascalho.cc/videos"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/videos/#webpage",
-        "url": "https://cascalho.cc/videos",
+        "@id": "https://www.cascalho.cc/videos/#webpage",
+        "url": "https://www.cascalho.cc/videos",
         "name": "Arquivo de Vídeos do YouTube — Páginas Permanentes",
         "description": "Acervo de conteúdos do canal Cascalho.CC.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

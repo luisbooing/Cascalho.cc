@@ -11,22 +11,22 @@ export const metadata: Metadata = {
   description: "Textos autorais sobre ciclismo gravel, trail running, consumo consciente, montanhas e histórias por George Volpão.",
   keywords: ["Artigos Gravel", "Ensaios Outdoor", "Ciclismo Curitiba", "Pensamento Outdoor", "George Volpão Textos"],
   alternates: {
-    canonical: "https://cascalho.cc/artigos",
+    canonical: "https://www.cascalho.cc/artigos",
   },
   openGraph: {
     title: "Artigos & Ensaios — Cascalho.CC",
     description: "Reflexões sobre equipamentos, escolhas de vida, montanhas e a cultura de pedalar e correr com propósito.",
-    url: "https://cascalho.cc/artigos",
+    url: "https://www.cascalho.cc/artigos",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Artigos Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Artigos Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Artigos & Ensaios — Cascalho.CC",
     description: "Textos profundos e sem filtro sobre gravel, corrida de montanha e vida outdoor.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -43,24 +43,24 @@ export default async function ArticlesPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Artigos",
-            "item": "https://cascalho.cc/artigos"
+            "item": "https://www.cascalho.cc/artigos"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/artigos/#webpage",
-        "url": "https://cascalho.cc/artigos",
+        "@id": "https://www.cascalho.cc/artigos/#webpage",
+        "url": "https://www.cascalho.cc/artigos",
         "name": "Artigos, Ensaios & Pensamentos sobre Vida Outdoor",
         "description": "Acervo completo de textos e relatos de George Volpão e equipe.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

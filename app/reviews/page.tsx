@@ -11,22 +11,22 @@ export const metadata: Metadata = {
   description: "Reviews de produtos de ciclismo gravel, corrida em trilha e vida outdoor testados de verdade no Brasil. Metodologia visível e sem jabá por George Volpão.",
   keywords: ["Reviews Gravel", "Testes de Pneus", "Review Mochila Trail", "Equipamentos Testados", "Review Isento", "Metodologia de Teste"],
   alternates: {
-    canonical: "https://cascalho.cc/reviews",
+    canonical: "https://www.cascalho.cc/reviews",
   },
   openGraph: {
     title: "Central de Reviews — Cascalho.CC",
     description: "Cada review responde a 11 critérios rigorosos: horas de uso, terreno, clima, limitações explícitas, perfil indicado e alternativas.",
-    url: "https://cascalho.cc/reviews",
+    url: "https://www.cascalho.cc/reviews",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "Reviews Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "Reviews Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Reviews Metodológicos & Testes de Campo — Cascalho.CC",
     description: "Testes reais de equipamentos sem jabá nem filtro comercial.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -44,24 +44,24 @@ export default async function ReviewsPage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Reviews",
-            "item": "https://cascalho.cc/reviews"
+            "item": "https://www.cascalho.cc/reviews"
           }
         ]
       },
       {
         "@type": "CollectionPage",
-        "@id": "https://cascalho.cc/reviews/#webpage",
-        "url": "https://cascalho.cc/reviews",
+        "@id": "https://www.cascalho.cc/reviews/#webpage",
+        "url": "https://www.cascalho.cc/reviews",
         "name": "Central de Reviews Metodológicos & Testes de Campo",
         "description": "Reviews imparciais de equipamentos com metodologia visível.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       }
     ]

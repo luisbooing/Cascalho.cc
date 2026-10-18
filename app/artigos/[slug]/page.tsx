@@ -24,7 +24,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const article = await getPostBySlug(params.slug);
   if (!article) return { title: 'Artigo não encontrado — Cascalho.CC' };
-  const canonicalUrl = `https://cascalho.cc/artigos/${params.slug}`;
+  const canonicalUrl = `https://www.cascalho.cc/artigos/${params.slug}`;
   return {
     title: `${article.title} — Cascalho.CC`,
     description: article.excerpt,

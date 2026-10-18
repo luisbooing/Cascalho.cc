@@ -12,22 +12,22 @@ export const metadata: Metadata = {
   description: "Conheça a trajetória de George Volpão nas montanhas brasileiras desde 1995 e a proposta editorial do Cascalho.CC.",
   keywords: ["George Volpão", "Quem Somos Cascalho CC", "Trajetória Montanhismo", "Curitiba Ciclismo"],
   alternates: {
-    canonical: "https://cascalho.cc/sobre",
+    canonical: "https://www.cascalho.cc/sobre",
   },
   openGraph: {
     title: "Quem Somos — Cascalho.CC",
     description: "Plataforma autoral de ciclismo gravel, corrida em trilha e pensamento crítico sobre vida ao ar livre por George Volpão.",
-    url: "https://cascalho.cc/sobre",
+    url: "https://www.cascalho.cc/sobre",
     siteName: "Cascalho.CC",
     locale: "pt_BR",
     type: "profile",
-    images: [{ url: "https://cascalho.cc/logo.png", width: 160, height: 160, alt: "George Volpão — Cascalho.CC" }],
+    images: [{ url: "https://www.cascalho.cc/logo.png", width: 160, height: 160, alt: "George Volpão — Cascalho.CC" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Quem Somos — Cascalho.CC",
     description: "Trajetória e manifesto de origem de George Volpão.",
-    images: ["https://cascalho.cc/logo.png"],
+    images: ["https://www.cascalho.cc/logo.png"],
   },
 };
 
@@ -44,24 +44,24 @@ export default async function SobrePage() {
             "@type": "ListItem",
             "position": 1,
             "name": "Início",
-            "item": "https://cascalho.cc"
+            "item": "https://www.cascalho.cc"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Sobre",
-            "item": "https://cascalho.cc/sobre"
+            "item": "https://www.cascalho.cc/sobre"
           }
         ]
       },
       {
         "@type": "AboutPage",
-        "@id": "https://cascalho.cc/sobre/#webpage",
-        "url": "https://cascalho.cc/sobre",
+        "@id": "https://www.cascalho.cc/sobre/#webpage",
+        "url": "https://www.cascalho.cc/sobre",
         "name": "Quem Somos — George Volpão & Cascalho.CC",
         "description": "História e trajetória de George Volpão no Cascalho.CC.",
         "isPartOf": {
-          "@id": "https://cascalho.cc/#website"
+          "@id": "https://www.cascalho.cc/#website"
         }
       },
       ...teamMembers.map((member) => ({
